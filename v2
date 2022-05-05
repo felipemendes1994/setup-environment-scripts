@@ -1,0 +1,234 @@
+## Atualizando o apt
+	sudo apt update
+
+## Instalando todas as dependencias
+	sudo apt install apt-transport-https -y
+	sudo apt install curl -y
+	sudo apt install ca-certificates -y
+	sudo apt install software-properties-common -y
+	sudo apt install snapd -y
+
+	sudo apt update
+
+
+## INSTALANDO NAVEGADORES
+
+	# Google Chrome	
+	# wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+	# sudo apt install ./google-chrome-stable_current_amd64.deb -y
+
+	# Brave
+	sudo curl -fsSLo /usr/share/keyrings/brave-browser-archive-keyring.gpg https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg
+	echo "deb [signed-by=/usr/share/keyrings/brave-browser-archive-keyring.gpg arch=amd64] https://brave-browser-apt-release.s3.brave.com/ stable main"|sudo tee /etc/apt/sources.list.d/brave-browser-release.list
+	sudo apt update
+	sudo apt install brave-browser -y
+
+
+## INSTALANDO FERRAMENTAS DE DESENVOLVIMENTO
+
+	# terminator
+	sudo apt install terminator -y
+
+	# Git
+	sudo apt install git -y
+
+	# Vscode
+	sudo sh -c 'echo "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main" > /etc/apt/sources.list.d/vscode.list'
+	curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg
+	sudo mv microsoft.gpg /etc/apt/trusted.gpg.d/microsoft.gpg
+	sudo apt update
+	sudo apt install code -y
+
+	# Dbeaver
+	echo "deb https://dbeaver.io/debs/dbeaver-ce /" | sudo tee /etc/apt/sources.list.d/dbeaver.list
+	wget -O - https://dbeaver.io/debs/dbeaver.gpg.key | sudo apt-key add -
+	sudo apt update
+	sudo apt-get install dbeaver-ce -y
+
+	# Npm
+	sudo apt install npm -y
+
+	# Nvm
+	# https://linuxize.com/post/how-to-install-node-js-on-ubuntu-18.04/
+	curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
+	export NVM_DIR="$HOME/.nvm"
+	[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+	[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+
+	# Maven
+	sudo apt install maven
+
+	# Yarn
+	curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | gpg --dearmor | sudo tee /usr/share/keyrings/yarnkey.gpg >/dev/null
+	echo "deb [signed-by=/usr/share/keyrings/yarnkey.gpg] https://dl.yarnpkg.com/debian stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+	sudo apt update 
+	sudo apt install yarn -y
+
+	# Docker
+	curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+	sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable"
+	sudo apt update
+	apt-cache policy docker-ce
+	sudo apt install docker-ce -y
+
+	sudo usermod -aG docker ${USER}
+	su - ${USER}
+	
+	## PRECISA ENCERRRAR A SESSAO DO USUARIO E LOGAR NOVAMENTE PARA FUNCIONAR
+	
+	# instalando docker-compose
+	sudo curl -L https://github.com/docker/compose/releases/download/1.21.2/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
+	sudo chmod +x /usr/local/bin/docker-compose
+
+	# Postman
+	sudo snap install postman
+
+	# NodeJs
+	# sudo apt install nodejs
+
+	# Instalar o lombok no eclipse
+	
+	
+	
+	
+## INSTALANDO E CONFIGURANDO AS PRINCIPAIS VERSOES DO JAVA
+
+	# Java 8
+	sudo apt install openjdk-8-jdk -y
+
+	# Java 11
+	sudo apt install openjdk-11-jdk -y
+
+	# Java 13
+	# sudo apt install openjdk-13-jdk -y
+
+	# Java 16
+	# sudo apt install openjdk-16-jdk -y
+
+
+
+
+## INSTALANDO APLICATIVOS
+
+	# Discord
+	sudo snap install discord
+
+	# Slack
+	sudo snap install slack
+	
+	# Teams
+	# sudo snap install teams
+	
+	# Spotify
+	sudo snap install spotify
+
+	# LibreOffice
+	sudo apt install libreoffice-gnome libreoffice -y
+
+	# Whatsapp Web
+	sudo snap install whatsapp-app
+
+	# Notion
+	sudo snap install notion-snap
+
+	# Trello
+	sudo snap install trello-desktop
+	
+	
+## CONFIGURANDO ALGUMAS COISAS
+
+	# CONFIGURANDO PASTAS DE ARQUIVOS PESSOAIS E OS DOCUMENTOS LA DENTRO
+
+	# CONFIGURANDO OS FAVORITOS DO NAVEGADOR
+
+    # Criando e adicionando o diretorio .local/bin ao $PATH
+	BIN="$HOME/.local/bin"
+    if [[ ! -d BIN ]]; then
+        mkdir $BIN
+        export PATH="$BIN:$PATH"
+    fi
+
+	# Criando link simbolico dos comandos para .local/bin
+	
+	# Importando configuracoes ja existente do Google Chrome
+	CHROME_CONFIGS="$HOME/.config/google-chrome"
+	if [[ ! -d CHROME_CONFIGS ]]; then
+		mv ${HOME}/.config/google-chrome ${HOME}/.config/google-chrome.old
+		mv ./google-chrome ${HOME}/.config/
+	fi
+	
+	# Criando o arquivo .bash_aliases
+	# O bash_aliases eu vou pegar do que estiver dentro do projeto e criar apenas um link simbolico
+	# BASH_ALIASES_FILE="$HOME/.bash_aliases"
+	# if [[ ! -d BASH_ALIASES_FILE ]]; then
+	# 	touch ${HOME}/.bash_aliases
+	# fi
+	
+	# Criando o diretorio de anotacoes
+	NOTES="$HOME/anotacoes"
+	if [[ ! -d NOTES ]]; then
+		mkdir $NOTES
+	fi
+
+	# Adicionando GIT Branch ao terminal
+	# https://coderwall.com/p/fasnya/add-git-branch-name-to-bash-prompt
+	parse_git_branch() {
+    	git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
+	}
+	export PS1="\u@\h \[\033[32m\]\w\[\033[33m\]\$(parse_git_branch)\[\033[00m\] $ "
+
+	# Criando atalhos no menu
+	#ln -s $PWD/atalhos/notas.desktop $HOME/local/share/applications/notas.desktop
+	       #Origem      											   #Destino
+	#ln -s /home/felipe/Documentos/pessoais/atalhos-menu/notas.desktop /home/felipe/.local/share/applications/notas.desktop
+	
+	## Trello
+	#ln -s $PWD/atalhos/trello.desktop $HOME/local/share/applications/trello.desktop
+	#Nao necessario pois esta aplicacao ja esta disponivel via snap
+
+	## Notion
+	# ln -s $PWD/atalhos/notion.desktop $HOME/local/share/applications/notion.desktop
+	# Nao necessario pois esta aplicacao ja esta disponivel via snap
+
+	# Adicionando excecao ao sudoers para nao pedir senha com root
+	# Ainda pesquisando um jeito de conseguir fazer essa bagaça funcionar por linha de comando
+	# sudo touch /etc/sudoers.d/felipe
+	# sudo printf "$USER ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers.d/felipe
+
+
+	# Extensoes do Gnome Shell
+	sudo apt install gnome-tweaks -y
+	sudo apt install gnome-shell-extension-multi-monitors -y
+
+		# sound input and output device chooser
+		# https://github.com/kgshank/gse-sound-output-device-chooser
+		git clone https://github.com/kgshank/gse-sound-output-device-chooser.git
+		cp -r ./gse-sound-output-device-chooser/sound-output-device-chooser@kgshank.net ~/.local/share/gnome-shell/extensions/
+		rm -rf ./gse-sound-output-device-chooser
+
+		# Dash to panel/ Dash to dock
+		https://extensions.gnome.org/extension/307/dash-to-dock/
+
+		# status area horizontal spacing
+
+		# system monitor
+
+		# workspace isolated
+
+	# auto move windows
+	
+	# Status area horizontal spacing
+	# https://gitlab.com/p91paul/status-area-horizontal-spacing-gnome-shell-extension
+
+	# Papirus Icons
+	sudo add-apt-repository ppa:papirus/papirus
+	sudo apt install papirus-icon-theme
+	gsettings set org.gnome.desktop.interface icon-theme 'Papirus'
+
+	# Chave SSH para o Bitbucket
+	ssh-keygen
+
+	
+## REMOVENDO TODOS OS PACOTES DESNECESSARIOS
+	sudo apt autoremove -y
+	
