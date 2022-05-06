@@ -132,7 +132,11 @@
 ## CONFIGURACOES PESSOAIS
 
 	# CRIA DIRETORIO DE DOCUMENTOS PESSOAIS
-	mkdir ~/Documentos/pessoais && cd ~/Documentos/pessoais
+		mkdir ~/Documentos/pessoais && cd ~/Documentos/pessoais
+
+	#CRIA DIRETORIA PARA ARMAZENAR AS WORKSPACES
+		mkdir ~/.workspaces/develop
+		mkdir ~/.workspaces/test
 
 	# CONFIGURA UMA CHAVE SSH PARA O GITHUB
 		ssh-keygen
