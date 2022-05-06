@@ -70,11 +70,12 @@
 	sudo apt install docker-ce -y
 
 	sudo usermod -aG docker ${USER}
-	su - ${USER}
+	# su - ${USER}
 	
 	echo ''
 	echo 'To run docker properly, you need to restart de user session...'
 	echo ''
+	# read -p '' -n1 -s
 	
 	# DOCKER-COMPOSE
 	sudo curl -L https://github.com/docker/compose/releases/download/1.21.2/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
@@ -127,8 +128,7 @@
 
 	# TRELLO
 	sudo snap install trello-desktop
-	
-	
+
 ## CONFIGURACOES PESSOAIS
 
 	# CRIA DIRETORIO DE DOCUMENTOS PESSOAIS
@@ -137,6 +137,11 @@
 	#CRIA DIRETORIA PARA ARMAZENAR AS WORKSPACES
 		mkdir ~/.workspaces/develop
 		mkdir ~/.workspaces/test
+
+	# Papirus Icons
+		sudo add-apt-repository ppa:papirus/papirus
+		sudo apt install papirus-icon-theme
+		gsettings set org.gnome.desktop.interface icon-theme 'Papirus'
 
 	# CONFIGURA UMA CHAVE SSH PARA O GITHUB
 		ssh-keygen
@@ -201,7 +206,7 @@
 
 		echo ''
 
-	# Extensoes do Gnome Shell
+	# EXTENSOES DO GNOME SHELL
 		sudo apt install gnome-tweaks -y
 		sudo apt install gnome-shell-extension-multi-monitors -y
 
@@ -231,10 +236,9 @@
 		read -p '' -n1 -s
 
 
-	# Papirus Icons
-	sudo add-apt-repository ppa:papirus/papirus
-	sudo apt install papirus-icon-theme
-	gsettings set org.gnome.desktop.interface icon-theme 'Papirus'
+	# MANUAL CONFIGURATIONS
+	echo 'Now itś time for you to download the files you want from drive, and place them in personal folder'
+
 
 	
 ## REMOVENDO TODOS OS PACOTES DESNECESSARIOS
