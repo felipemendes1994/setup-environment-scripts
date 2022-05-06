@@ -1,7 +1,6 @@
-## ATUALIZANDO O APT
+basic_dependencies(){
 	sudo apt update
 
-## DEPENDENCIAS BASICAS
 	sudo apt install apt-transport-https -y
 	sudo apt install curl -y
 	sudo apt install ca-certificates -y
@@ -9,60 +8,72 @@
 	sudo apt install snapd -y
 
 	sudo apt update
+}
 
-## NAVEGADORES
-
-	# GOOGLE CHROME	
-	# wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-	# sudo apt install ./google-chrome-stable_current_amd64.deb -y
-
-	# BRAVE
+__brave_browser(){
 	sudo curl -fsSLo /usr/share/keyrings/brave-browser-archive-keyring.gpg https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg
 	echo "deb [signed-by=/usr/share/keyrings/brave-browser-archive-keyring.gpg arch=amd64] https://brave-browser-apt-release.s3.brave.com/ stable main"|sudo tee /etc/apt/sources.list.d/brave-browser-release.list
 	sudo apt update
 	sudo apt install brave-browser -y
+}
 
-## FERRAMENTAS DE DESENVOLVIMENTO
+__google_chrome(){
+	wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+	sudo apt install ./google-chrome-stable_current_amd64.deb -y
+}
 
-	# TERMINATOR
+browsers(){
+	# __google_chrome
+	__brave_browser
+}
+
+__terminator(){
 	sudo apt install terminator -y
+}
 
-	# GIT
+__git(){
 	sudo apt install git -y
+}
 
-	# VSCODE
+__vscode(){
 	sudo sh -c 'echo "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main" > /etc/apt/sources.list.d/vscode.list'
 	curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg
 	sudo mv microsoft.gpg /etc/apt/trusted.gpg.d/microsoft.gpg
 	sudo apt update
 	sudo apt install code -y
+}
 
-	# DBEAVER
+__dbeaver(){
 	echo "deb https://dbeaver.io/debs/dbeaver-ce /" | sudo tee /etc/apt/sources.list.d/dbeaver.list
 	wget -O - https://dbeaver.io/debs/dbeaver.gpg.key | sudo apt-key add -
 	sudo apt update
 	sudo apt-get install dbeaver-ce -y
+}
 
-	# NPM
+__npm(){
 	sudo apt install npm -y
+}
 
-	# NVM
+__nvm(){
 	# https://linuxize.com/post/how-to-install-node-js-on-ubuntu-18.04/
 	curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
 	export NVM_DIR="$HOME/.nvm"
 	[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 	[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+}
 
-	# MAVEN
-	sudo apt install maven
+__maven(){
+	sudo apt install maven -y
+}
 
-	# YARN
+__yarn(){
 	curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | gpg --dearmor | sudo tee /usr/share/keyrings/yarnkey.gpg >/dev/null
 	echo "deb [signed-by=/usr/share/keyrings/yarnkey.gpg] https://dl.yarnpkg.com/debian stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
 	sudo apt update 
 	sudo apt install yarn -y
+}
 
-	# DOCKER - PRECISA ENCERRRAR A SESSAO DO USUARIO E LOGAR NOVAMENTE PARA FUNCIONAR
+__docker(){
 	curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 	sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable"
 	sudo apt update
@@ -70,177 +81,293 @@
 	sudo apt install docker-ce -y
 
 	sudo usermod -aG docker ${USER}
-	# su - ${USER}
-	
-	echo ''
-	echo 'To run docker properly, you need to restart de user session...'
-	echo ''
-	# read -p '' -n1 -s
-	
-	# DOCKER-COMPOSE
+}
+
+__docker_compose(){
 	sudo curl -L https://github.com/docker/compose/releases/download/1.21.2/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
 	sudo chmod +x /usr/local/bin/docker-compose
+}
 
-	# POSTMAN
-	sudo snap install postman
+__nodejs(){
+	sudo apt install nodejs
+}
 
-	# NODEJS
-	# sudo apt install nodejs
+development_tools(){
+	__terminator
+	__git
+	__vscode
+	__dbeaver
+	__npm
+	__nvm
+	__maven
+	__yarn
+	__docker
+	__docker_compose
+	# __nodejs
+}
 
-	
-## VERSOES DO JAVA
-
-	# JAVA 8
+__java8(){
 	sudo apt install openjdk-8-jdk -y
+__}
 
-	# JAVA 11
+__java11(){
 	sudo apt install openjdk-11-jdk -y
+}
 
-	# JAVA 13
-	# sudo apt install openjdk-13-jdk -y
+__java13(){
+	sudo apt install openjdk-13-jdk -y
+}
 
-	# JAVA 16
-	# sudo apt install openjdk-16-jdk -y
+__java16(){
+	sudo apt install openjdk-16-jdk -y
+}
 
+java_versions(){
+	__java8
+	__java11
+	# __java13
+	# __java16
+}
 
-## APLICATIVOS
+__postman(){
+	sudo snap install postman
+}
 
-	# DISCORD
-	# sudo snap install discord
+__discord(){
+	sudo snap install discord
+}
 
-	# SLACK
+__slack(){
 	sudo snap install slack
-	
-	# TEAMS
-	# sudo snap install teams
-	
-	# SPOTIFY
+}
+
+__teams(){
+	sudo snap install teams
+}
+
+__spotify(){
 	sudo snap install spotify
+}
 
-	# LIBREOFFICE
+__libre_office(){
 	sudo apt install libreoffice-gnome libreoffice -y
+}
 
-	# WHATSAPP WEB
+__whatsapp(){
 	sudo snap install whatsapp-app
+}
 
-	# NOTION
+__notion(){
 	sudo snap install notion-snap
+}
 
-	# TRELLO
+__trello(){
 	sudo snap install trello-desktop
+}
 
-## CONFIGURACOES PESSOAIS
+tools(){
+	__discord
+	__slack
+	__teams
+	__spotify
+	__libre_office
+	__whatsapp
+	__notion
+	__trello
+	__postman
+}
 
-	# CRIA DIRETORIO DE DOCUMENTOS PESSOAIS
-		mkdir ~/Documentos/pessoais && cd ~/Documentos/pessoais
+_wait_and_clear(){
+	read -p '' -n1 -s
+	clear
+}
 
-	#CRIA DIRETORIA PARA ARMAZENAR AS WORKSPACES
-		mkdir ~/.workspaces/develop
-		mkdir ~/.workspaces/test
+__papyrus_icons(){
+	echo 'Adding papyrus icons package...'
+	sudo add-apt-repository ppa:papirus/papirus
+	sudo apt install papirus-icon-theme -y
+	gsettings set org.gnome.desktop.interface icon-theme 'Papirus'
+	_wait_and_clear
+}
 
-	# Papirus Icons
-		sudo add-apt-repository ppa:papirus/papirus
-		sudo apt install papirus-icon-theme
-		gsettings set org.gnome.desktop.interface icon-theme 'Papirus'
+__create_personal_dir(){
+	echo 'Creating folder ~/Documentos/pessoais...'
+	mkdir -p ~/Documentos/pessoais && cd ~/Documentos/pessoais
+	_wait_and_clear
+}
 
-	# CONFIGURA UMA CHAVE SSH PARA O GITHUB
-		ssh-keygen
-		# Aguardando configurar a chave ssh que foi criado no github
-		read -p "Set the generated ssh key into github and press any key to continue... " -n1 -s
+__create_personal_workspaces(){
+	echo 'Creating folders ~/.workspaces/develop and ~/.workspaces/test'
+	mkdir -p ~/.workspaces/develop && mkdir -p ~/.workspaces/test
+	_wait_and_clear
+}
 
-	# CLONA O REPOSITORIO COM OS ARQUIVOS DE CONFIGURACAO
-		git clone git@github.com:felipemendes1994/setup-environment-files.git
-		cd ./setup-environment-files
+__create_ssh_key(){
+	ssh-keygen
+	_wait_and_clear
+}
 
-	# CONFIGURA PASTAS DE ARQUIVOS PESSOAIS E OS DOCUMENTOS LA DENTRO
-		# Aqui talvez eu vou fazer download dos arquivo disponiveis no google drive atraves de um link
-	
-	# ADICIONA AS EXTENSOES NECESSARIAS PARA O BRAVE
-		# Copiando as extensões para dentro da pasta do Brave
-		rm -rf ~/.config/BraveSoftware/Brave-Browser/Default/Extensions
-		cp -r ./Extensions ~/.config/BraveSoftware/Brave-Browser/Default
+__clone_personal_files_repository(){
+	echo 'Cloning repository with basic files for configuration...'
+	git clone git@github.com:felipemendes1994/setup-environment-files.git && cd ./setup-environment-files
+	_wait_and_clear
+}
 
-	# ADICIONA O ARQUIVO DE CONFIGURACOES DO NAVEGADOR
-		rm -rf ~/.config/BraveSoftware/Brave-Browser/Default/Preferences
-		cp -r ./Preferences ~/.config/BraveSoftware/Brave-Browser/Default
+__download_files_from_drive(){
+	echo 'Now its time to download the needed files from google drive... Waiting to proceed...'
+	_wait_and_clear
+	# Aqui talvez eu vou fazer download dos arquivo disponiveis no google drive atraves de um link
+}
 
-	# CONFIGURANDO OS FAVORITOS DO NAVEGADOR
-		# Por enquanto vou deixar aqui em branco pois vou usar a extensao do navegador
+__create_local_bin_dir_and_add_to_path(){
+	echo 'Creating folder ~/.local/bin...'
+	BIN="$HOME/.local/bin"
+	mkdir -p $BIN && export PATH="$BIN:$PATH"
+	_wait_and_clear
+}
 
-	# CONFIGURANDO OS COMANDOS PERSONALIZADOS
-		# Criando e adicionando o diretorio .local/bin ao $PATH
-		BIN="$HOME/.local/bin"
-		if [[ ! -d BIN ]]; then
-			mkdir $BIN
-			export PATH="$BIN:$PATH"
-		fi
+__create_symbolical_link_for_bash_aliases(){
+	echo 'Creating symbolical link to bash_aliases...'
+	ln -s $HOME/Documentos/pessoais/setup-environment-files/bash_aliases $HOME/.bash_aliases
+	_wait_and_clear
+}
 
-		# Criando link simbolico dos comandos para .local/bin
-	
-	# CRIANDO UM LINK SIMBOLICO PARA O BASH_ALIASES
-		# O bash_aliases eu vou pegar do que estiver dentro do projeto e criar apenas um link simbolico
-		ln -s $HOME/Documentos/pessoais/setup-environment-files/bash_aliases $HOME/.bash_aliases
-	
-	# CONFIGURANDO GIT BRANCH NO TERMINAL
-		# https://coderwall.com/p/fasnya/add-git-branch-name-to-bash-prompt
-		parse_git_branch() {
-			git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
-		}
-		export PS1="\u@\h \[\033[32m\]\w\[\033[33m\]\$(parse_git_branch)\[\033[00m\] $ "
+__set_git_branch_on_terminal(){
+	echo 'Setting git branch in terminal...'
+	# https://coderwall.com/p/fasnya/add-git-branch-name-to-bash-prompt
+	parse_git_branch() {
+		git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
+	}
+	export PS1="\u@\h \[\033[32m\]\w\[\033[33m\]\$(parse_git_branch)\[\033[00m\] $ "
+	_wait_and_clear
+}
 
-	# CRIANDO ATALHO DO MENU DE ANOTACOES
-		#ln -s $ORIGEM $DESTINO
-		ln -s $HOME/Documentos/pessoais/setup-environment-files/atalhos/notas.desktop $HOME/.local/share/applications/notas.desktop
+__create_shortcut_to_notes(){
+	echo 'Creating shortcut for notes in menu...'
+	#ln -s $ORIGEM $DESTINO
+	ln -s $HOME/Documentos/pessoais/setup-environment-files/atalhos/notas.desktop $HOME/.local/share/applications/notas.desktop
+	_wait_and_clear
+}
 
-	
-	echo 'Starting manual configuration...'
+__add_user_in_sudoers_file(){
+	# Ainda pesquisando um jeito de conseguir fazer essa bagaça funcionar por linha de comando
+	echo 'Now its time to set sudoers file... Paste the following command into /etc/sudoers file'
+	echo '$USER ALL=(ALL) NOPASSWD: ALL'
+	_wait_and_clear
+}
+
+__set_gnome_extensions(){
+	sudo apt install gnome-tweaks -y
+	# sudo apt install gnome-shell-extension-multi-monitors -y
+
+	clear
+	echo 'Now its time to enable gnome extensions directly in your browser... '
+	echo 'Open the following urls and dont forget to customize them...'
+	echo ''
 	read -p '' -n1 -s
 
-	echo ''
+	# Dash to panel/ Dash to dock
+	echo 'https://extensions.gnome.org/extension/307/dash-to-dock/'
+	read -p '' -n1 -s
 
-	# ADICIONANDO EXCECAO AO SUDOERS PARA NAO PEDIR SENHA COM ROOT
-		# Ainda pesquisando um jeito de conseguir fazer essa bagaça funcionar por linha de comando
-		echo 'paste the following command into /etc/sudoers file'
-		echo '$USER ALL=(ALL) NOPASSWD: ALL'
-		read -p '' -n1 -s
-
-		echo ''
-
-	# EXTENSOES DO GNOME SHELL
-		sudo apt install gnome-tweaks -y
-		sudo apt install gnome-shell-extension-multi-monitors -y
-
-		echo 'Starting gnome extensions setup...'
-		echo 'Open the following urls and activate all the extensions'
-		echo ''
-		read -p '' -n1 -s
-
-		# Dash to panel/ Dash to dock
-		echo 'https://extensions.gnome.org/extension/307/dash-to-dock/'
-		read -p '' -n1 -s
-
-		# Desktop Icons
-		echo 'https://extensions.gnome.org/extension/1465/desktop-icons/'
-		read -p '' -n1 -s
-		
-		# sound input and output device chooser
-		echo 'https://extensions.gnome.org/extension/906/sound-output-device-chooser/'
-		read -p '' -n1 -s
-
-		# status area horizontal spacing
-		echo 'https://extensions.gnome.org/extension/355/status-area-horizontal-spacing/'
-		read -p '' -n1 -s
-
-		# system monitor
-		echo 'https://extensions.gnome.org/extension/120/system-monitor/'
-		read -p '' -n1 -s
-
-
-	# MANUAL CONFIGURATIONS
-	echo 'Now itś time for you to download the files you want from drive, and place them in personal folder'
-
-
+	# Desktop Icons
+	echo 'https://extensions.gnome.org/extension/1465/desktop-icons/'
+	read -p '' -n1 -s
 	
-## REMOVENDO TODOS OS PACOTES DESNECESSARIOS
+	# sound input and output device chooser
+	echo 'https://extensions.gnome.org/extension/906/sound-output-device-chooser/'
+	read -p '' -n1 -s
+
+	# status area horizontal spacing
+	echo 'https://extensions.gnome.org/extension/355/status-area-horizontal-spacing/'
+	read -p '' -n1 -s
+
+	# system monitor
+	echo 'https://extensions.gnome.org/extension/120/system-monitor/'
+	read -p '' -n1 -s
+
+	_wait_and_clear
+}
+
+__add_brave_extensions(){
+	echo 'Copying extensions to Brave folder...'
+	rm -rf ~/.config/BraveSoftware/Brave-Browser/Default/Extensions
+	cp -r ./Extensions ~/.config/BraveSoftware/Brave-Browser/Default
+	_wait_and_clear
+}
+
+__add_brave_preferences(){
+	echo 'Copying Brave preferences to Brave folder...'
+	rm -rf ~/.config/BraveSoftware/Brave-Browser/Default/Preferences
+	cp -r ./Preferences ~/.config/BraveSoftware/Brave-Browser/Default
+	_wait_and_clear
+}
+
+__final_message(){
+	echo 'There is some remaining configuration you must do manually...'
+	echo 'Press any key to finalize this script...'
+	_wait_and_clear
+}
+
+personal_setup(){
+	__papyrus_icons
+
+	__create_personal_dir
+	__create_personal_workspaces	
+
+	# __create_ssh_key
+	__clone_personal_files_repository
+	__download_files_from_drive
+
+	__create_local_bin_dir_and_add_to_path
+
+	__create_symbolical_link_for_bash_aliases
+	__create_shortcut_to_notes
+
+	__add_brave_extensions
+	__add_brave_preferences
+	
+	__set_git_branch_on_terminal
+
+	__add_user_in_sudoers_file
+
+	__set_gnome_extensions
+
+	__final_message
+}
+
+remove_unnecessary_packages(){
 	sudo apt autoremove -y
+}
+
+setup_only(){
+	echo 'To run setup successfully, the OS must be restarted first... Press any key to proceed...'
+	read -p '' -n1 -s
+	clear
+	personal_setup
+	remove_unnecessary_packages
+}
+
+full_installation(){
+	basic_dependencies
+	browsers
+	development_tools
+	java_versions
+	tools
+	# Precisa reiniciar o SO
+	personal_setup
+	remove_unnecessary_packages
+}
 	
+if [ "$1" ]; then
+	if [ "$1" = "--full"]; then 
+		full_installation
+	fi
+
+	if [ "$1" = "--setup"]; then
+		personal_setup
+		remove_unnecessary_packages
+	fi
+else
+	full_installation
+fi
