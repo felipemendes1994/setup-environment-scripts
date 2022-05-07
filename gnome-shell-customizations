@@ -108,7 +108,7 @@ development_tools(){
 
 __java8(){
 	sudo apt install openjdk-8-jdk -y
-__}
+}
 
 __java11(){
 	sudo apt install openjdk-11-jdk -y
@@ -187,6 +187,7 @@ __papyrus_icons(){
 	sudo add-apt-repository ppa:papirus/papirus
 	sudo apt install papirus-icon-theme -y
 	gsettings set org.gnome.desktop.interface icon-theme 'Papirus'
+	echo 'Papyrus installation finished... Press any key to proceed...'
 	_wait_and_clear
 }
 
@@ -214,7 +215,8 @@ __clone_personal_files_repository(){
 }
 
 __download_files_from_drive(){
-	echo 'Now its time to download the needed files from google drive... Waiting to proceed...'
+	echo 'Now its time to download the needed files from google drive...'
+	echo 'When finished press any key to proceed...'
 	_wait_and_clear
 	# Aqui talvez eu vou fazer download dos arquivo disponiveis no google drive atraves de um link
 }
@@ -251,7 +253,8 @@ __create_shortcut_to_notes(){
 
 __add_user_in_sudoers_file(){
 	# Ainda pesquisando um jeito de conseguir fazer essa bagaça funcionar por linha de comando
-	echo 'Now its time to set sudoers file... Paste the following command into /etc/sudoers file'
+	echo 'Now its time to set sudoers file... '
+	echo 'Paste the following command into /etc/sudoers file...'
 	echo '$USER ALL=(ALL) NOPASSWD: ALL'
 	_wait_and_clear
 }
@@ -292,14 +295,14 @@ __set_gnome_extensions(){
 __add_brave_extensions(){
 	echo 'Copying extensions to Brave folder...'
 	rm -rf ~/.config/BraveSoftware/Brave-Browser/Default/Extensions
-	cp -r ./Extensions ~/.config/BraveSoftware/Brave-Browser/Default
+	cp -r ~/Documentos/pessoais/setup-environment-files/Extensions ~/.config/BraveSoftware/Brave-Browser/Default
 	_wait_and_clear
 }
 
 __add_brave_preferences(){
 	echo 'Copying Brave preferences to Brave folder...'
 	rm -rf ~/.config/BraveSoftware/Brave-Browser/Default/Preferences
-	cp -r ./Preferences ~/.config/BraveSoftware/Brave-Browser/Default
+	cp -r ~/Documentos/pessoais/setup-environment-files/Preferences ~/.config/BraveSoftware/Brave-Browser/Default
 	_wait_and_clear
 }
 
@@ -341,7 +344,8 @@ remove_unnecessary_packages(){
 }
 
 setup_only(){
-	echo 'To run setup successfully, the OS must be restarted first... Press any key to proceed...'
+	echo 'To run setup successfully, the OS must be restarted first... '
+	echo 'Press any key to proceed...'
 	read -p '' -n1 -s
 	clear
 	personal_setup
@@ -360,11 +364,11 @@ full_installation(){
 }
 	
 if [ "$1" ]; then
-	if [ "$1" = "--full"]; then 
+	if [ "$1" = "--full" ]; then 
 		full_installation
 	fi
 
-	if [ "$1" = "--setup"]; then
+	if [ "$1" = "--setup" ]; then
 		personal_setup
 		remove_unnecessary_packages
 	fi
