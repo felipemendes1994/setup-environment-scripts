@@ -1,0 +1,10 @@
+#!/bin/bash
+__papyrus_icons(){
+	clear
+	echo 'Adding papyrus icons package...'
+	sudo add-apt-repository ppa:papirus/papirus
+	sudo apt install papirus-icon-theme -y
+	gsettings set org.gnome.desktop.interface icon-theme 'Papirus'
+	echo 'Papyrus installation finished... Press any key to proceed...'
+	_wait_and_clear
+}

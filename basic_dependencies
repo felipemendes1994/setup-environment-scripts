@@ -1,0 +1,13 @@
+#!/bin/bash
+
+basic_dependencies(){
+	sudo apt update
+
+	sudo apt install apt-transport-https -y
+	sudo apt install curl -y
+	sudo apt install ca-certificates -y
+	sudo apt install software-properties-common -y
+	sudo apt install snapd -y
+
+	sudo apt update
+}

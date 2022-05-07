@@ -1,0 +1,36 @@
+#!/bin/bash
+__postman(){
+	sudo snap install postman
+}
+
+__discord(){
+	sudo snap install discord
+}
+
+__slack(){
+	sudo snap install slack
+}
+
+__teams(){
+	sudo snap install teams
+}
+
+__spotify(){
+	sudo snap install spotify
+}
+
+__libre_office(){
+	sudo apt install libreoffice-gnome libreoffice -y
+}
+
+__whatsapp(){
+	sudo snap install whatsapp-app
+}
+
+__notion(){
+	sudo snap install notion-snap
+}
+
+__trello(){
+	sudo snap install trello-desktop
+}

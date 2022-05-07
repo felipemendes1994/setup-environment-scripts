@@ -1,0 +1,119 @@
+#!/bin/bash
+__create_personal_dir(){
+	echo 'Creating folder ~/Documentos/pessoais...'
+	mkdir -p ~/Documentos/pessoais && cd ~/Documentos/pessoais
+	_wait_and_clear
+}
+
+__create_personal_workspaces(){
+	echo 'Creating folders ~/.workspaces/develop and ~/.workspaces/test'
+	mkdir -p ~/.workspaces/develop && mkdir -p ~/.workspaces/test
+	_wait_and_clear
+}
+
+__create_ssh_key(){
+	ssh-keygen
+	_wait_and_clear
+}
+
+__clone_setup-environments-scripts(){
+    
+}
+
+__clone_personal_files_repository(){
+	echo 'Cloning repository with basic files for configuration...'
+	git clone git@github.com:felipemendes1994/setup-environment-files.git && cd ./setup-environment-files
+	_wait_and_clear
+}
+
+__download_files_from_drive(){
+	echo 'Now its time to download the needed files from google drive...'
+	echo 'When finished press any key to proceed...'
+	_wait_and_clear
+	# Aqui talvez eu vou fazer download dos arquivo disponiveis no google drive atraves de um link
+}
+
+__create_local_bin_dir_and_add_to_path(){
+	echo 'Creating folder ~/.local/bin...'
+	BIN="$HOME/.local/bin"
+	mkdir -p $BIN && export PATH="$BIN:$PATH"
+	_wait_and_clear
+}
+
+__create_symbolical_link_for_bash_aliases(){
+	echo 'Creating symbolical link to bash_aliases...'
+	ln -s $HOME/Documentos/pessoais/setup-environment-files/bash_aliases $HOME/.bash_aliases
+	_wait_and_clear
+}
+
+__set_git_branch_on_terminal(){
+	echo 'Setting git branch in terminal...'
+	# https://coderwall.com/p/fasnya/add-git-branch-name-to-bash-prompt
+	parse_git_branch() {
+		git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
+	}
+	export PS1="\u@\h \[\033[32m\]\w\[\033[33m\]\$(parse_git_branch)\[\033[00m\] $ "
+	_wait_and_clear
+}
+
+__create_shortcut_to_notes(){
+	echo 'Creating shortcut for notes in menu...'
+	#ln -s $ORIGEM $DESTINO
+	ln -s $HOME/Documentos/pessoais/setup-environment-files/atalhos/notas.desktop $HOME/.local/share/applications/notas.desktop
+	_wait_and_clear
+}
+
+__add_user_in_sudoers_file(){
+	# Ainda pesquisando um jeito de conseguir fazer essa bagaça funcionar por linha de comando
+	echo 'Now its time to set sudoers file... '
+	echo 'Paste the following command into /etc/sudoers file...'
+	echo '$USER ALL=(ALL) NOPASSWD: ALL'
+	_wait_and_clear
+}
+
+__set_gnome_extensions(){
+	sudo apt install gnome-tweaks -y
+	# sudo apt install gnome-shell-extension-multi-monitors -y
+
+	clear
+	echo 'Now its time to enable gnome extensions directly in your browser... '
+	echo 'Open the following urls and dont forget to customize them...'
+	echo ''
+	read -p '' -n1 -s
+
+	# Dash to panel/ Dash to dock
+	echo 'https://extensions.gnome.org/extension/307/dash-to-dock/'
+	read -p '' -n1 -s
+
+	# Desktop Icons
+	echo 'https://extensions.gnome.org/extension/1465/desktop-icons/'
+	read -p '' -n1 -s
+	
+	# sound input and output device chooser
+	echo 'https://extensions.gnome.org/extension/906/sound-output-device-chooser/'
+	read -p '' -n1 -s
+
+	# status area horizontal spacing
+	echo 'https://extensions.gnome.org/extension/355/status-area-horizontal-spacing/'
+	read -p '' -n1 -s
+
+	# system monitor
+	echo 'https://extensions.gnome.org/extension/120/system-monitor/'
+	read -p '' -n1 -s
+
+	_wait_and_clear
+}
+
+__add_brave_extensions(){
+	echo 'Copying extensions to Brave folder...'
+	rm -rf ~/.config/BraveSoftware/Brave-Browser/Default/Extensions
+	cp -r ~/Documentos/pessoais/setup-environment-files/Extensions ~/.config/BraveSoftware/Brave-Browser/Default
+	_wait_and_clear
+}
+
+__add_brave_preferences(){
+	echo 'Copying Brave preferences to Brave folder...'
+	rm -rf ~/.config/BraveSoftware/Brave-Browser/Default/Preferences
+	cp -r ~/Documentos/pessoais/setup-environment-files/Preferences ~/.config/BraveSoftware/Brave-Browser/Default
+	_wait_and_clear
+}
