@@ -1,5 +1,4 @@
 #!/bin/bash
-
 basic_dependencies(){
 	sudo apt update
 
@@ -10,4 +9,10 @@ basic_dependencies(){
 	sudo apt install snapd -y
 
 	sudo apt update
+
+	echo ''
+	echo ''
+	read -p 'Press any key to continue...' -n1 -s
 }
+
+basic_dependencies

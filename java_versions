@@ -1,4 +1,5 @@
 #!/bin/bash
+
 __java8(){
 	sudo apt install openjdk-8-jdk -y
 }
@@ -14,3 +15,18 @@ __java13(){
 __java16(){
 	sudo apt install openjdk-16-jdk -y
 }
+
+__all(){
+	__java8
+	__java11
+	__java13
+	__java16
+}
+
+case $1 in
+	java8) __java8;;
+	java11) __java11;;
+	java13) __java13;;
+	java16) __java16;;
+	all) __all;;
+esac

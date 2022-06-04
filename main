@@ -1,0 +1,55 @@
+#!/bin/bash
+
+# remove_unnecessary_packages(){
+# 	sudo apt autoremove -y
+# }
+
+_open_brave(){
+	# brave-browser
+	echo ''
+	echo ''
+	echo 'Open brave to proceed with setup configuration'
+	echo ''
+	read -p '' -n1 -s
+}
+
+setup(){
+	echo 'Starting environment configuration...'
+	read -p '' -n1 -s
+	clear
+	./personal_configuration
+	# remove_unnecessary_packages
+}
+
+installation(){
+	./basic_dependencies 	# ok
+	./browsers all 			# ok
+	./development_tools all # ok
+	./java_versions all 	# ok
+	./tools all 			# ok
+	./icons_packages		# ok
+	_open_brave 
+	# echo 'Now you must restart the OS to finish the configuration'
+	setup
+	# Precisa reiniciar o SO
+}
+
+# Comeca configurando uma chave ssh
+# Espera adicionar essa chave no github
+
+# Primeira cria o diretorio de arquivos pessoais e entra nele
+# Clona o repositorio do scripts e do arquivos
+	
+if [ "$1" ]; then
+	if [ "$1" = "--install-apps" ]; then 
+		installation
+	fi
+
+	if [ "$1" = "--setup" ]; then
+		setup
+	fi
+else
+	echo 'You must say which kind of installation you want to make... provide one of the following argument'
+	echo '--install-apps	use this command for only install the needed applications'
+	echo '--setup			use this command for setting up the environment'
+fi

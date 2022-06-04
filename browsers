@@ -4,9 +4,23 @@ __brave_browser(){
 	echo "deb [signed-by=/usr/share/keyrings/brave-browser-archive-keyring.gpg arch=amd64] https://brave-browser-apt-release.s3.brave.com/ stable main"|sudo tee /etc/apt/sources.list.d/brave-browser-release.list
 	sudo apt update
 	sudo apt install brave-browser -y
+	brave-browser
+	read -p '' -n1 -s
 }
 
 __google_chrome(){
 	wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 	sudo apt install ./google-chrome-stable_current_amd64.deb -y
+	read -p '' -n1 -s
 }
+
+all(){
+	__brave_browser
+	__google_chrome
+}
+
+case $1 in
+	brave) __brave_browser;;
+	chrome) __google_chrome;;
+	all) all;;
+esac

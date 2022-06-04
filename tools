@@ -34,3 +34,29 @@ __notion(){
 __trello(){
 	sudo snap install trello-desktop
 }
+
+__all(){
+	__postman
+	__discord
+	__slack
+	__teams
+	__spotify
+	__libre_office
+	__whatsapp
+	__notion
+	__trello
+	__all
+}
+
+case $1 in
+	postman) __postman;;
+	discord) __discord;;
+	slack) __slack;;
+	teams) __teams;;
+	spotify) __spotify;;
+	libreoffice) __libre_office;;
+	whatsapp) __whatsapp;;
+	notion) __notion;;
+	trello) __trello;;
+	all) __all;;
+esac

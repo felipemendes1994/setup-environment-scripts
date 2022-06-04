@@ -1,5 +1,4 @@
 #!/bin/bash
-
 __terminator(){
 	sudo apt install terminator -y
 }
@@ -68,3 +67,34 @@ __docker_compose(){
 __nodejs(){
 	sudo apt install nodejs
 }
+
+__all(){
+	__terminator
+	__vim
+	__git
+	__vscode
+	__dbeaver
+	__npm
+	__nvm
+	__maven
+	__yarn
+	__docker
+	__docker_compose
+	__nodejs
+}
+
+case $1 in
+	terminator) __terminator;;
+	vim) __vim;;
+	git) __git;;
+	vscode) __vscode;;
+	dbeaver) __dbeaver;;
+	npm) __npm;;
+	nvm) __nvm;;
+	maven) __maven;;
+	yarn) __yarn;;
+	docker) __docker;;
+	docker-compose) __docker_compose;;
+	node) __nodejs;;
+	all) __all;;
+esac
