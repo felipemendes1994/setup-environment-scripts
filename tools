@@ -35,6 +35,11 @@ __trello(){
 	sudo snap install trello-desktop
 }
 
+__trash(){
+	sudo apt install trash-cli
+}
+
+
 __all(){
 	__postman
 	__discord
@@ -45,6 +50,7 @@ __all(){
 	__whatsapp
 	__notion
 	__trello
+	__trash
 	__all
 }
 
