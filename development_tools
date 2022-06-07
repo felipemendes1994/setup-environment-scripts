@@ -68,6 +68,12 @@ __nodejs(){
 	sudo apt install nodejs
 }
 
+__quarkus_cli(){
+	curl -Ls https://sh.jbang.dev | bash -s - trust add https://repo1.maven.org/maven2/io/quarkus/quarkus-cli/
+	curl -Ls https://sh.jbang.dev | bash -s - app install --fresh --force quarkus@quarkusio
+	jbang app install --fresh --force quarkus@quarkusio
+}
+
 __all(){
 	__terminator
 	__vim
@@ -81,6 +87,7 @@ __all(){
 	__docker
 	__docker_compose
 	__nodejs
+	__quarkus_cli
 }
 
 case $1 in
@@ -96,5 +103,6 @@ case $1 in
 	docker) __docker;;
 	docker-compose) __docker_compose;;
 	node) __nodejs;;
+	quarkus) __quarkus_cli;;
 	all) __all;;
 esac

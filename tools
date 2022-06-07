@@ -39,19 +39,23 @@ __trash(){
 	sudo apt install trash-cli
 }
 
+__gnome_tweaks(){
+	sudo apt install gnome-tweaks -y
+}
+
 
 __all(){
 	__postman
 	__discord
 	__slack
-	__teams
+	# __teams
 	__spotify
 	__libre_office
-	__whatsapp
+	# __whatsapp
 	__notion
 	__trello
 	__trash
-	__all
+	__gnome_tweaks
 }
 
 case $1 in
@@ -64,5 +68,6 @@ case $1 in
 	whatsapp) __whatsapp;;
 	notion) __notion;;
 	trello) __trello;;
+	tweaks) __gnome_tweaks;;
 	all) __all;;
 esac
