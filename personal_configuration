@@ -79,6 +79,18 @@ read -p '' -n1 -s
 dconf load / < full-backup #trocar full-backup pelo local do arquivo
 
 
+# Baixar e configurar oh-my-posh
+sudo wget https://github.com/JanDeDobbeleer/oh-my-posh/releases/latest/download/posh-linux-amd64 -O /usr/local/bin/oh-my-posh
+sudo chmod +x /usr/local/bin/oh-my-posh
+
+# Talvez nao seja necessario baixar todos os temas 
+    # mkdir ~/.poshthemes
+    # wget https://github.com/JanDeDobbeleer/oh-my-posh/releases/latest/download/themes.zip -O ~/.poshthemes/themes.zip
+    # unzip ~/.poshthemes/themes.zip -d ~/.poshthemes
+    # chmod u+rw ~/.poshthemes/*.omp.*
+    # rm ~/.poshthemes/themes.zip
+
+
 # __clone_setup_environments_files(){
 # 	echo 'Cloning repository with basic files for configuration...'
 # 	git clone git@github.com:felipemendes1994/setup-environment-files.git && cd ./setup-environment-files
