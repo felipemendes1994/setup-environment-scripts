@@ -83,6 +83,10 @@ dconf load / < full-backup #trocar full-backup pelo local do arquivo
 sudo wget https://github.com/JanDeDobbeleer/oh-my-posh/releases/latest/download/posh-linux-amd64 -O /usr/local/bin/oh-my-posh
 sudo chmod +x /usr/local/bin/oh-my-posh
 
+# Configurando sudoers com uma linha
+# sudo sh -c 'echo "$(logname) ALL=(ALL:ALL) NOPASSWD: ALL" > /etc/sudoers.d/$(logname)' && sudo chmod 440 /etc/sudoers.d/$(logname)
+
+
 # Talvez nao seja necessario baixar todos os temas 
     # mkdir ~/.poshthemes
     # wget https://github.com/JanDeDobbeleer/oh-my-posh/releases/latest/download/themes.zip -O ~/.poshthemes/themes.zip
