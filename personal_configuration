@@ -12,6 +12,8 @@ BIN='/home/felipe/.local/bin'
 export PATH="$BIN:$PATH"
 ln -s $HOME/Documentos/pessoais/setup-environment-files/comandos/backup $BIN/backup
 
+ln -s $HOME/Documentos/pessoais/setup-environment-files/comandos/commit $BIN/commit
+
 
 echo 'Creating symbolical link to bash_aliases...'
 ln -s $HOME/Documentos/pessoais/setup-environment-files/bash_aliases $HOME/.bash_aliases
@@ -20,6 +22,7 @@ ln -s $HOME/Documentos/pessoais/setup-environment-files/bash_aliases $HOME/.bash
 echo 'Creating shortcut for notes in menu...'
 #ln -s $ORIGEM $DESTINO
 ln -s $HOME/Documentos/pessoais/setup-environment-files/atalhos/notas.desktop $HOME/.local/share/applications/notas.desktop
+# ln -s $HOME/Documentos/pessoais/setup-environment-files/atalhos/intellij.desktop $HOME/.local/share/applications/intellij.desktop
 
 # Criar o atalhos para o whatsapp
 # Criar o atalho para o gmail da maplink
