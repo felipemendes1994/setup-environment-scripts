@@ -81,7 +81,7 @@ echo 'https://extensions.gnome.org/extension/120/system-monitor/'
 read -p '' -n1 -s
 
 # Restaura todas as configuracoes do usuario do gnome shell
-dconf load / < full-backup #trocar full-backup pelo local do arquivo
+# dconf load / < full-backup #trocar full-backup pelo local do arquivo
 
 
 # Baixar e configurar oh-my-posh
