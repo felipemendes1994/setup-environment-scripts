@@ -7,6 +7,7 @@ basic_dependencies(){
 	sudo apt install ca-certificates -y
 	sudo apt install software-properties-common -y
 	sudo apt install snapd -y
+	sudo apt install gnupg -y
 
 	sudo apt update
 

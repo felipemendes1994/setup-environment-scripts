@@ -2,9 +2,11 @@
 
 echo 'Creating needed folders'
 mkdir -p ~/Documentos/pessoais
-mkdir -p ~/.workspaces/develop
-mkdir -p ~/.workspaces/test
+mkdir -p ~/Documentos/maplink
+# mkdir -p ~/.workspaces/develop
+# mkdir -p ~/.workspaces/test
 mkdir -p ~/.local/bin
+mkdir -p ~/.vpn
 
 
 echo 'Addind ~/.local/bin to PATH'
@@ -22,7 +24,7 @@ ln -s $HOME/Documentos/pessoais/setup-environment-files/bash_aliases $HOME/.bash
 echo 'Creating shortcut for notes in menu...'
 #ln -s $ORIGEM $DESTINO
 ln -s $HOME/Documentos/pessoais/setup-environment-files/atalhos/notas.desktop $HOME/.local/share/applications/notas.desktop
-# ln -s $HOME/Documentos/pessoais/setup-environment-files/atalhos/intellij.desktop $HOME/.local/share/applications/intellij.desktop
+ln -s $HOME/Documentos/pessoais/setup-environment-files/atalhos/intellij.desktop $HOME/.local/share/applications/intellij.desktop
 
 # Criar o atalhos para o whatsapp
 # Criar o atalho para o gmail da maplink
