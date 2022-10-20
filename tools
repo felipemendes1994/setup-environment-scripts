@@ -43,6 +43,15 @@ __gnome_tweaks(){
 	sudo apt install gnome-tweaks -y
 }
 
+__gnome_extensions(){
+	sudo apt install gnome-shell-extensions -y
+}
+
+__ohmyposh(){
+	sudo wget https://github.com/JanDeDobbeleer/oh-my-posh/releases/latest/download/posh-linux-amd64 -O /usr/local/bin/oh-my-posh
+	sudo chmod +x /usr/local/bin/oh-my-posh
+}
+
 
 __all(){
 	__postman
@@ -56,6 +65,8 @@ __all(){
 	__trello
 	__trash
 	__gnome_tweaks
+	__gnome_extensions
+	__ohmyposh
 }
 
 case $1 in
@@ -69,5 +80,8 @@ case $1 in
 	notion) __notion;;
 	trello) __trello;;
 	tweaks) __gnome_tweaks;;
+	extensions) __gnome_extensions;;
+	ohmyposh) __ohmyposh;;
 	all) __all;;
+	*) echo "Bad commands execution. No actions taken."; exit 1;;
 esac

@@ -89,6 +89,13 @@ __kubectl() {
 	sudo apt-get install -y kubectl
 }
 
+__intellij() {
+	curl -L https://download.jetbrains.com/idea/ideaIU-2022.2.3.tar.gz -o /tmp/ideaIU-2022.2.3.tar.gz
+	tar -xvf /tmp/ideaIU-2022.2.3.tar.gz -C /tmp
+	mv /tmp/idea-* $HOME/.intellij
+}
+
+
 __all(){
 	__terminator
 	__vim
@@ -105,6 +112,7 @@ __all(){
 	__quarkus_cli
 	__google_cloud_sdk
 	__kubectl
+	__intellij
 }
 
 case $1 in
@@ -123,5 +131,7 @@ case $1 in
 	quarkus) __quarkus_cli;;
 	gcloud) __google_cloud_sdk;;
 	kubectl) __kubectl;;
+	intellij) __intellij;;
 	all) __all;;
+	*) echo "Bad command execution. No actions taken."; exit 1;;
 esac

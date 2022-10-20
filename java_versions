@@ -19,14 +19,15 @@ __java16(){
 __all(){
 	__java8
 	__java11
-	__java13
-	__java16
+	# __java13
+	# __java16
 }
 
 case $1 in
 	java8) __java8;;
 	java11) __java11;;
-	java13) __java13;;
-	java16) __java16;;
+	# java13) __java13;;
+	# java16) __java16;;
 	all) __all;;
+	*) echo "Bad commands execution. No actions taken."; exit 1;;
 esac

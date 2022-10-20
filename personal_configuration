@@ -1,96 +1,182 @@
 #!/bin/bash
 
+__folders() {
 echo 'Creating needed folders'
-mkdir -p ~/Documentos/pessoais
-mkdir -p ~/Documentos/maplink
-# mkdir -p ~/.workspaces/develop
-# mkdir -p ~/.workspaces/test
-mkdir -p ~/.local/bin
-mkdir -p ~/.vpn
+	mkdir -p ~/Documentos/pessoais
+	mkdir -p ~/Documentos/maplink
+	mkdir -p ~/.local/bin
+	mkdir -p ~/.vpn
+	mkdir -p ~/.local/share/gnome-shell/extensions
+	# mkdir -p ~/.workspaces/develop
+	# mkdir -p ~/.workspaces/test
+}
 
 
-echo 'Addind ~/.local/bin to PATH'
-BIN='/home/felipe/.local/bin'
-export PATH="$BIN:$PATH"
-ln -s $HOME/Documentos/pessoais/setup-environment-files/comandos/backup $BIN/backup
+__commands() {
+	# echo 'Addind ~/.local/bin to PATH'
+	BIN='/home/felipe/.local/bin'
+	export PATH="$BIN:$PATH"
+	ln -s $HOME/Documentos/pessoais/setup-environment-files/comandos/backup $BIN/backup
+	ln -s $HOME/Documentos/pessoais/setup-environment-files/comandos/commit $BIN/commit
+    ln -s $HOME/Documentos/pessoais/setup-environment-files/comandos/vpnc $BIN/bin/vpnc
+    ln -s $HOME/Documentos/pessoais/setup-environment-files/comandos/vpnd $BIN/bin/vpnd
+    ln -s $HOME/Documentos/pessoais/setup-environment-files/comandos/vpns $BIN/bin/vpns
+}
 
-ln -s $HOME/Documentos/pessoais/setup-environment-files/comandos/commit $BIN/commit
+__aliases() {
+	# echo 'Creating symbolical link to bash_aliases...'
+	ln -s $HOME/Documentos/pessoais/setup-environment-files/bash_aliases $HOME/.bash_aliases
+}
 
+__shortcuts() {
+	# echo 'Creating shortcut for notes in menu...'
+	#ln -s $ORIGEM $DESTINO
+	ln -s $HOME/Documentos/pessoais/setup-environment-files/atalhos/notas.desktop $HOME/.local/share/applications/notas.desktop
+	ln -s $HOME/Documentos/pessoais/setup-environment-files/atalhos/intellij.desktop $HOME/.local/share/applications/intellij.desktop
+	
+	# Criar o atalhos para o whatsapp
+	# Criar o atalho para o gmail da maplink
+	# Criar o atalho para o google meet da maplink
+}
 
-echo 'Creating symbolical link to bash_aliases...'
-ln -s $HOME/Documentos/pessoais/setup-environment-files/bash_aliases $HOME/.bash_aliases
+__maplink_notes() {
+	ln -s $HOME/Documentos/maplink/anotacoes $HOME/Documentos/pessoais/maplink
+}
 
+__clone_setup_environment_files() {
+	echo 'Cloning repository with basic files for configuration...'
+	git clone git@github.com:felipemendes1994/setup-environment-files.git && cd ./setup-environment-files
+# Adicionar o link de download no lugar do comando do git clone
 
-echo 'Creating shortcut for notes in menu...'
-#ln -s $ORIGEM $DESTINO
-ln -s $HOME/Documentos/pessoais/setup-environment-files/atalhos/notas.desktop $HOME/.local/share/applications/notas.desktop
-ln -s $HOME/Documentos/pessoais/setup-environment-files/atalhos/intellij.desktop $HOME/.local/share/applications/intellij.desktop
+}
 
-# Criar o atalhos para o whatsapp
-# Criar o atalho para o gmail da maplink
-# Criar o atalho para o google meet da maplink
-
-echo 'Cloning repository with basic files for configuration...'
-git clone git@github.com:felipemendes1994/setup-environment-files.git && cd ./setup-environment-files
-
-
-echo 'Configuring Brave'
-echo 'Copying extensions to Brave folder...'
-rm -rf ~/.config/BraveSoftware/Brave-Browser/Default/Extensions
-cp -r ~/Documentos/pessoais/setup-environment-files/Extensions ~/.config/BraveSoftware/Brave-Browser/Default
-
-
-echo 'Copying Brave preferences to Brave folder...'
-rm -rf ~/.config/BraveSoftware/Brave-Browser/Default/Preferences
-cp -r ~/Documentos/pessoais/setup-environment-files/Preferences ~/.config/BraveSoftware/Brave-Browser/Default
-
-
-echo 'Copying Brave Bookmarks to Brave folder...'
-rm -rf ~/.config/BraveSoftware/Brave-Browser/Default/Bookmarks
-cp -r ~/Documentos/pessoais/setup-environment-files/Bookmarks ~/.config/BraveSoftware/Brave-Browser/Default
-
-
-echo 'Copying Brave History to Brave folder...'
-rm -rf ~/.config/BraveSoftware/Brave-Browser/Default/History
-cp -r ~/Documentos/pessoais/setup-environment-files/History ~/.config/BraveSoftware/Brave-Browser/Default
-
-
-echo 'Now its time to enable gnome extensions directly in your browser... '
-echo 'Open the following urls and dont forget to customize them...'
-echo ''
-read -p '' -n1 -s
-
-# Dash to panel/ Dash to dock
-echo 'https://extensions.gnome.org/extension/307/dash-to-dock/'
-read -p '' -n1 -s
-
-# Desktop Icons
-echo 'https://extensions.gnome.org/extension/1465/desktop-icons/'
-read -p '' -n1 -s
-
-# sound input and output device chooser
-echo 'https://extensions.gnome.org/extension/906/sound-output-device-chooser/'
-read -p '' -n1 -s
-
-# status area horizontal spacing
-echo 'https://extensions.gnome.org/extension/355/status-area-horizontal-spacing/'
-read -p '' -n1 -s
-
-# system monitor
-echo 'https://extensions.gnome.org/extension/120/system-monitor/'
-read -p '' -n1 -s
-
-# Restaura todas as configuracoes do usuario do gnome shell
-# dconf load / < full-backup #trocar full-backup pelo local do arquivo
+__setup_brave(){
+	echo 'Configuring Brave'
+	echo 'Copying extensions to Brave folder...'
+	rm -rf ~/.config/BraveSoftware/Brave-Browser/Default/Extensions
+	cp -r ~/Documentos/pessoais/setup-environment-files/brave-browser/Extensions ~/.config/BraveSoftware/Brave-Browser/Default
 
 
-# Baixar e configurar oh-my-posh
-sudo wget https://github.com/JanDeDobbeleer/oh-my-posh/releases/latest/download/posh-linux-amd64 -O /usr/local/bin/oh-my-posh
-sudo chmod +x /usr/local/bin/oh-my-posh
+	echo 'Copying Brave preferences to Brave folder...'
+	rm -rf ~/.config/BraveSoftware/Brave-Browser/Default/Preferences
+	cp -r ~/Documentos/pessoais/setup-environment-files/brave-browser/Preferences ~/.config/BraveSoftware/Brave-Browser/Default
 
-# Configurando sudoers com uma linha
-# sudo sh -c 'echo "$(logname) ALL=(ALL:ALL) NOPASSWD: ALL" > /etc/sudoers.d/$(logname)' && sudo chmod 440 /etc/sudoers.d/$(logname)
 
+	echo 'Copying Brave Bookmarks to Brave folder...'
+	rm -rf ~/.config/BraveSoftware/Brave-Browser/Default/Bookmarks
+	cp -r ~/Documentos/pessoais/setup-environment-files/brave-browser/Bookmarks ~/.config/BraveSoftware/Brave-Browser/Default
+
+
+	echo 'Copying Brave History to Brave folder...'
+	rm -rf ~/.config/BraveSoftware/Brave-Browser/Default/History
+	cp -r ~/Documentos/pessoais/setup-environment-files/brave-browser/History ~/.config/BraveSoftware/Brave-Browser/Default
+}
+
+__gnome_extensions() {
+	cd ~/.local/share/gnome-shell/extensions/
+
+    echo "Need adjustments"
+
+	# echo 'Now its time to enable gnome extensions directly in your browser... '
+	# echo 'Open the following urls and dont forget to customize them...'
+	# echo ''
+	# read -p '' -n1 -s
+
+	# Dash to panel/ Dash to dock
+	# echo 'https://extensions.gnome.org/extension/307/dash-to-dock/'
+	# read -p '' -n1 -s
+
+	# Desktop Icons
+	# echo 'https://extensions.gnome.org/extension/1465/desktop-icons/'
+	# read -p '' -n1 -s
+
+	# sound input and output device chooser
+	# https://github.com/kgshank/gse-sound-output-device-chooser
+	# echo 'sound-output-device-chooser'
+	# curl -L https://github.com/kgshank/gse-sound-output-device-chooser/archive/refs/heads/master.zip -o ./gse-sound-output-device-chooser.zip
+	# unzip ./gse-sound-output-device-chooser.zip 
+	# cp -r ./gse-sound-output-device-chooser-master/sound-output-device-chooser@kgshank.net .
+	# trash gse-sound-output-device-chooser-master gse-sound-output-device-chooser.zip
+	# read -p 'Sound-output-device-chooser installation finished successfully...' -n1 -s
+
+	# status area horizontal spacing
+	echo 'status-area-horizontal-spacing'
+	curl -L https://gitlab.com/p91paul/status-area-horizontal-spacing-gnome-shell-extension/-/archive/master/status-area-horizontal-spacing-gnome-shell-extension-master.zip -o ./status-area-horizontal-spacing.zip
+	unzip ./status-area-horizontal-spacing.zip
+	mv ./status-area-horizontal-spacing-gnome-shell-extension-master/status-area-horizontal-spacing@mathematical.coffee.gmail.com .
+	trash ./status-area-horizontal-spacing-gnome-shell-extension-master ./status-area-horizontal-spacing.zip
+	# read -p 'Status-area-horizontal-spacing installation finished successfully...' -n1 -s
+
+	# system monitor
+	# echo 'https://extensions.gnome.org/extension/120/system-monitor/'
+	curl -L https://github.com/paradoxxxzero/gnome-shell-system-monitor-applet/archive/refs/heads/master.zip -o gnome-shell-system-monitor-applet.zip
+	unzip ./gnome-shell-system-monitor-applet.zip
+	# mv ./gnome-shell-system-monitor-applet-master/system-monitor@paradoxxx.zero.gmail.com .
+	# trash ./gnome-shell-system-monitor-applet-master ./gnome-shell-system-monitor-applet.zip
+	# read -p 'System-monitor installation finished successfully...' -n1 -s
+
+	# vpn indicator
+	# echo 'https://extensions.gnome.org/extension/1134/vpn-indicator/'
+	curl -L https://github.com/howdoicomputer/vpn-indicator-shell-extension/archive/refs/heads/master.zip -o vpn-indicator.zip
+	unzip ./vpn-indicator.zip
+	sh ./vpn-indicator-shell-extension-master/install.sh
+	trash vpn-indicator-shell-extension-master/ vpn-indicator.zip
+
+	# read -p '' -n1 -s
+}
+
+__gnome_configurations(){
+	echo "Not working yet."
+	# Restaura todas as configuracoes do usuario do gnome shell
+	# dconf load / < full-backup #trocar full-backup pelo local do arquivo
+}
+
+__ohmyposh() {
+	# Baixar e configurar oh-my-posh
+	# sudo wget https://github.com/JanDeDobbeleer/oh-my-posh/releases/latest/download/posh-linux-amd64 -O /usr/local/bin/oh-my-posh
+	# sudo chmod +x /usr/local/bin/oh-my-posh
+	oh-my-posh font install meslo
+
+    # Talvez nao seja necessario baixar todos os temas 
+    # mkdir ~/.poshthemes
+    # wget https://github.com/JanDeDobbeleer/oh-my-posh/releases/latest/download/themes.zip -O ~/.poshthemes/themes.zip
+    # unzip ~/.poshthemes/themes.zip -d ~/.poshthemes
+    # chmod u+rw ~/.poshthemes/*.omp.*
+    # rm ~/.poshthemes/themes.zip
+}
+
+__sudoers() {
+	echo "Not working yet."
+	# Configurando sudoers com uma linha
+	# sudo sh -c 'echo "$(logname) ALL=(ALL:ALL) NOPASSWD: ALL" > /etc/sudoers.d/$(logname)' && sudo chmod 440 /etc/sudoers.d/$(logname)
+}
+
+__all() {
+	__folders
+	__commands
+	__aliases
+	__shortcuts
+	# __clone_setup_environment_files
+	__setup_brave
+	__gnome_extensions
+	__gnome_configurations
+	__ohmyposh
+	# __sudoers
+}
+
+case $1 in
+	folders) __folders;;
+	commands) __commands;;
+	aliases) __aliases;;
+	shortcuts) __shortcuts;;
+	sef) __clone_setup_environment_files;;
+	brave) __setup_brave;;
+	extensions) __gnome_extensions;;
+	config) __gnome_configurations;;
+	myposh) __ohmyposh;;
+	all) all;;
+	*) echo "No parameters provided. No actions taken."; exit 1;;
+esac 
 
 # Talvez nao seja necessario baixar todos os temas 
     # mkdir ~/.poshthemes
