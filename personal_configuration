@@ -131,8 +131,17 @@ __ohmyposh() {
 }
 
 __vpn(){
-	ECHO "Setting up vpn..."
-	cp /media/$USER/PENDRIVE/config/vpn/default-vpn.ovpn ~/.vpn
+	echo "Setting up vpn..."
+	# cp /media/$USER/PENDRIVE/config/vpn/default-vpn.ovpn ~/.vpn
+	cp /media/$USER/PENDRIVE/config/vpn/default-vpn.ovpn /tmp
+}
+
+__ssh(){
+	echo "Setting up ssh keys..."
+	cp /media/$USER/PENDRIVE/config/ssh/* $HOME/.ssh
+	chmod 600 $HOME/.ssh/*
+	chmod 644 $HOME/.ssh/*.pub
+	ssh-add $HOME/.ssh/id_rsa $HOME/.ssh/github_rsa
 }
 
 __help(){
@@ -147,7 +156,8 @@ __help(){
 	echo "extensions	Install needed gnome-shell-extensions"
 	# echo "config		Import gnome-shell configurations to SO"
 	echo "myposh		Setup oh my posh fonts"
-	echo "vpn			Setup vpn file to SO"
+	echo "vpn			Setup vpn"
+	echo "ssh			Setup ssh keys"
 	echo "all			Run all options mentioned above"
 }
 
@@ -162,6 +172,7 @@ __all() {
 	__gnome_configurations
 	__ohmyposh
 	__vpn
+	__ssh
 }
 
 case $1 in
@@ -175,8 +186,9 @@ case $1 in
 	config) __gnome_configurations;;
 	myposh) __ohmyposh;;
 	vpn) __vpn;;
+	ssh) __ssh;;
 	all) all;;
-	-h | help) __help;;
+	help | -h) __help;;
 	*) echo "No parameters provided. No actions taken."; exit 1;;
 esac 
 
