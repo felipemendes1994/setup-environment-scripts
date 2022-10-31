@@ -1,5 +1,5 @@
 #!/bin/bash
-basic_dependencies(){
+__basic_dependencies(){
 	sudo apt update
 
 	sudo apt install apt-transport-https -y
@@ -10,10 +10,6 @@ basic_dependencies(){
 	sudo apt install gnupg -y
 
 	sudo apt update
-
-	echo ''
-	echo ''
-	read -p 'Press any key to continue...' -n1 -s
 }
 
-basic_dependencies
+__basic_dependencies

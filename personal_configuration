@@ -1,7 +1,7 @@
 #!/bin/bash
 
 __folders() {
-echo 'Creating needed folders'
+	# echo 'Creating needed folders'
 	mkdir -p ~/Documentos/pessoais
 	mkdir -p ~/Documentos/maplink
 	mkdir -p ~/.local/bin
@@ -44,10 +44,11 @@ __maplink_notes() {
 }
 
 __clone_setup_environment_files() {
-	echo 'Cloning repository with basic files for configuration...'
-	git clone git@github.com:felipemendes1994/setup-environment-files.git && cd ./setup-environment-files
-# Adicionar o link de download no lugar do comando do git clone
-
+	# echo 'Cloning repository with basic files for configuration...'
+	curl -L https://github.com/felipemendes1994/setup-environment-files/archive/refs/heads/master.zip -o ~/Downloads/setup-environment-files.zip
+	unzip ~/Downloads/setup-environment-files.zip
+	cp -R ~/Downloads/setup-environment-files ~/Documentos/pessoais
+	trash ~/Downloads/setup-environment-files.zip
 }
 
 __setup_brave(){
@@ -121,8 +122,6 @@ __gnome_extensions() {
 	unzip ./vpn-indicator.zip
 	sh ./vpn-indicator-shell-extension-master/install.sh
 	trash vpn-indicator-shell-extension-master/ vpn-indicator.zip
-
-	# read -p '' -n1 -s
 }
 
 __gnome_configurations(){
@@ -132,23 +131,14 @@ __gnome_configurations(){
 }
 
 __ohmyposh() {
-	# Baixar e configurar oh-my-posh
-	# sudo wget https://github.com/JanDeDobbeleer/oh-my-posh/releases/latest/download/posh-linux-amd64 -O /usr/local/bin/oh-my-posh
-	# sudo chmod +x /usr/local/bin/oh-my-posh
 	oh-my-posh font install meslo
-
-    # Talvez nao seja necessario baixar todos os temas 
-    # mkdir ~/.poshthemes
-    # wget https://github.com/JanDeDobbeleer/oh-my-posh/releases/latest/download/themes.zip -O ~/.poshthemes/themes.zip
-    # unzip ~/.poshthemes/themes.zip -d ~/.poshthemes
-    # chmod u+rw ~/.poshthemes/*.omp.*
-    # rm ~/.poshthemes/themes.zip
 }
 
-__sudoers() {
-	echo "Not working yet."
-	# Configurando sudoers com uma linha
-	# sudo sh -c 'echo "$(logname) ALL=(ALL:ALL) NOPASSWD: ALL" > /etc/sudoers.d/$(logname)' && sudo chmod 440 /etc/sudoers.d/$(logname)
+__vpn(){
+	curl -fsSL https://swupdate.openvpn.net/repos/openvpn-repo-pkg-key.pub | gpg --dearmor | sudo tee /usr/share/keyrings/openvpn-repo-pkg-keyring.gpg
+	echo "deb [signed-by=/usr/share/keyrings/openvpn-repo-pkg-keyring.gpg] https://swupdate.openvpn.net/community/openvpn3/repos $(lsb_release -c) main" | sudo tee -a /etc/apt/sources.list.d/openvpn3.list
+	sudo apt update
+	sudo apt install openvpn3
 }
 
 __all() {
@@ -161,7 +151,7 @@ __all() {
 	__gnome_extensions
 	__gnome_configurations
 	__ohmyposh
-	# __sudoers
+	__vpn
 }
 
 case $1 in
@@ -174,114 +164,13 @@ case $1 in
 	extensions) __gnome_extensions;;
 	config) __gnome_configurations;;
 	myposh) __ohmyposh;;
+	vpn) __vpn;;
 	all) all;;
 	*) echo "No parameters provided. No actions taken."; exit 1;;
 esac 
 
-# Talvez nao seja necessario baixar todos os temas 
-    # mkdir ~/.poshthemes
-    # wget https://github.com/JanDeDobbeleer/oh-my-posh/releases/latest/download/themes.zip -O ~/.poshthemes/themes.zip
-    # unzip ~/.poshthemes/themes.zip -d ~/.poshthemes
-    # chmod u+rw ~/.poshthemes/*.omp.*
-    # rm ~/.poshthemes/themes.zip
-
-
-# __clone_setup_environments_files(){
-# 	echo 'Cloning repository with basic files for configuration...'
-# 	git clone git@github.com:felipemendes1994/setup-environment-files.git && cd ./setup-environment-files
-# 	_wait_and_clear
-# }
-
-# __download_files_from_drive(){
-# 	echo 'Now its time to download the needed files from google drive...'
-# 	echo 'When finished press any key to proceed...'
-# 	_wait_and_clear
-# 	# Aqui talvez eu vou fazer download dos arquivo disponiveis no google drive atraves de um link
-# }
-
-# __create_symbolical_link_for_bash_aliases(){
-# 	echo 'Creating symbolical link to bash_aliases...'
-# 	ln -s $HOME/Documentos/pessoais/setup-environment-files/bash_aliases $HOME/.bash_aliases
-# 	_wait_and_clear
-# }
-
-# __create_shortcut_to_notes(){
-# 	echo 'Creating shortcut for notes in menu...'
-# 	#ln -s $ORIGEM $DESTINO
-# 	ln -s $HOME/Documentos/pessoais/setup-environment-files/atalhos/notas.desktop $HOME/.local/share/applications/notas.desktop
-# 	_wait_and_clear
-# }
-
-# __add_user_in_sudoers_file(){
-# 	# Ainda pesquisando um jeito de conseguir fazer essa bagaça funcionar por linha de comando
-# 	echo 'Now its time to set sudoers file... '
-# 	echo 'Paste the following command into /etc/sudoers file...'
-# 	echo '$USER ALL=(ALL) NOPASSWD: ALL'
-# 	_wait_and_clear
-# }
-
-# __set_gnome_extensions(){
-# 	sudo apt install gnome-tweaks -y
-# 	# sudo apt install gnome-shell-extension-multi-monitors -y
-
-# 	clear
-# 	echo 'Now its time to enable gnome extensions directly in your browser... '
-# 	echo 'Open the following urls and dont forget to customize them...'
-# 	echo ''
-# 	read -p '' -n1 -s
-
-# 	# Dash to panel/ Dash to dock
 # 	echo 'https://extensions.gnome.org/extension/307/dash-to-dock/'
-# 	read -p '' -n1 -s
-
-# 	# Desktop Icons
 # 	echo 'https://extensions.gnome.org/extension/1465/desktop-icons/'
-# 	read -p '' -n1 -s
-	
-# 	# sound input and output device chooser
 # 	echo 'https://extensions.gnome.org/extension/906/sound-output-device-chooser/'
-# 	read -p '' -n1 -s
-
-# 	# status area horizontal spacing
 # 	echo 'https://extensions.gnome.org/extension/355/status-area-horizontal-spacing/'
-# 	read -p '' -n1 -s
-
-# 	# system monitor
 # 	echo 'https://extensions.gnome.org/extension/120/system-monitor/'
-# 	read -p '' -n1 -s
-
-# 	_wait_and_clear
-# }
-
-# __add_brave_extensions(){
-# 	echo 'Copying extensions to Brave folder...'
-# 	rm -rf ~/.config/BraveSoftware/Brave-Browser/Default/Extensions
-# 	cp -r ~/Documentos/pessoais/setup-environment-files/Extensions ~/.config/BraveSoftware/Brave-Browser/Default
-# 	_wait_and_clear
-# }
-
-# __add_brave_preferences(){
-# 	echo 'Copying Brave preferences to Brave folder...'
-# 	rm -rf ~/.config/BraveSoftware/Brave-Browser/Default/Preferences
-# 	cp -r ~/Documentos/pessoais/setup-environment-files/Preferences ~/.config/BraveSoftware/Brave-Browser/Default
-# 	_wait_and_clear
-# }
-
-
-# _wait_and_clear(){
-# 	clear
-# 	read -p '' -n1 -s
-# }
-
-# all(){
-# 	__create_personal_dir
-# 	__create_eclipse_workspaces
-# 	__clone_setup_environments_files
-# 	__create_local_bin_dir_and_add_to_path
-# 	__create_symbolical_link_for_bash_aliases
-# 	__set_git_branch_on_terminal 				## Testar se funciona colocar a funcao dentro do bash_aliases
-# 	__create_shortcut_to_notes
-# 	__set_gnome_extensions
-# 	__add_brave_extensions
-# 	__add_brave_preferences
-# }

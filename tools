@@ -36,7 +36,7 @@ __trello(){
 }
 
 __trash(){
-	sudo apt install trash-cli
+	sudo apt install trash-cli -y
 }
 
 __gnome_tweaks(){
@@ -50,6 +50,10 @@ __gnome_extensions(){
 __ohmyposh(){
 	sudo wget https://github.com/JanDeDobbeleer/oh-my-posh/releases/latest/download/posh-linux-amd64 -O /usr/local/bin/oh-my-posh
 	sudo chmod +x /usr/local/bin/oh-my-posh
+}
+
+__help(){
+	echo "Help!!!"
 }
 
 

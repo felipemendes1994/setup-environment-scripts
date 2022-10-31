@@ -10,7 +10,3 @@ __papyrus_icons(){
 }
 
 __papyrus_icons
-
-# case $1 in
-# 	papyrus) __papyrus_icons;;
-# esac
