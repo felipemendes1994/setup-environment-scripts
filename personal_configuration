@@ -33,10 +33,6 @@ __shortcuts() {
 	#ln -s $ORIGEM $DESTINO
 	ln -s $HOME/Documentos/pessoais/setup-environment-files/atalhos/notas.desktop $HOME/.local/share/applications/notas.desktop
 	ln -s $HOME/Documentos/pessoais/setup-environment-files/atalhos/intellij.desktop $HOME/.local/share/applications/intellij.desktop
-	
-	# Criar o atalhos para o whatsapp
-	# Criar o atalho para o gmail da maplink
-	# Criar o atalho para o google meet da maplink
 }
 
 __maplink_notes() {
@@ -135,10 +131,24 @@ __ohmyposh() {
 }
 
 __vpn(){
-	curl -fsSL https://swupdate.openvpn.net/repos/openvpn-repo-pkg-key.pub | gpg --dearmor | sudo tee /usr/share/keyrings/openvpn-repo-pkg-keyring.gpg
-	echo "deb [signed-by=/usr/share/keyrings/openvpn-repo-pkg-keyring.gpg] https://swupdate.openvpn.net/community/openvpn3/repos $(lsb_release -c) main" | sudo tee -a /etc/apt/sources.list.d/openvpn3.list
-	sudo apt update
-	sudo apt install openvpn3
+	ECHO "Setting up vpn..."
+	cp /media/$USER/PENDRIVE/config/vpn/default-vpn.ovpn ~/.vpn
+}
+
+__help(){
+	echo "Personal configuration script"
+	echo ""
+	echo "folders		Create needed folders"
+	echo "commands		Create symbolical link to personal commands"
+	echo "aliases		Create symbolical link to bash_aliases file"
+	echo "shortcuts		Create symbolical link to personal shortcuts"
+	echo "sef			Download personal environment files from github"
+	echo "brave			Replace brave files with local ones"
+	echo "extensions	Install needed gnome-shell-extensions"
+	# echo "config		Import gnome-shell configurations to SO"
+	echo "myposh		Setup oh my posh fonts"
+	echo "vpn			Setup vpn file to SO"
+	echo "all			Run all options mentioned above"
 }
 
 __all() {
@@ -146,7 +156,7 @@ __all() {
 	__commands
 	__aliases
 	__shortcuts
-	# __clone_setup_environment_files
+	__clone_setup_environment_files
 	__setup_brave
 	__gnome_extensions
 	__gnome_configurations
@@ -166,6 +176,7 @@ case $1 in
 	myposh) __ohmyposh;;
 	vpn) __vpn;;
 	all) all;;
+	-h | help) __help;;
 	*) echo "No parameters provided. No actions taken."; exit 1;;
 esac 
 

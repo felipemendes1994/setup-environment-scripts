@@ -52,8 +52,30 @@ __ohmyposh(){
 	sudo chmod +x /usr/local/bin/oh-my-posh
 }
 
+__vpn(){
+	curl -fsSL https://swupdate.openvpn.net/repos/openvpn-repo-pkg-key.pub | gpg --dearmor | sudo tee /usr/share/keyrings/openvpn-repo-pkg-keyring.gpg
+	echo "deb [signed-by=/usr/share/keyrings/openvpn-repo-pkg-keyring.gpg] https://swupdate.openvpn.net/community/openvpn3/repos $(lsb_release -c) main" | sudo tee -a /etc/apt/sources.list.d/openvpn3.list
+	sudo apt update
+	sudo apt install openvpn3
+}
+
 __help(){
-	echo "Help!!!"
+	echo "Persona tools script"
+	echo ""
+	echo "postman			Install postman"
+	echo "discord			Install discord"
+	echo "slack				Install slack"
+	echo "teams				Install teams"
+	echo "spotify			Install spotify"
+	echo "libreoffice		Install libreoffice"
+	echo "whatsapp			Install whatsapp"
+	echo "notion			Install notion"
+	echo "trello			Install trello"
+	echo "tweaks			Install Gnome Tweaks"
+	echo "extensions		Install Gnome Extensions"
+	echo "ohmyposh			Install Oh My Posh"
+	echo "vpn				Install Openvpn3"
+	echo "all				Install all tools mentioned above"
 }
 
 
@@ -71,6 +93,7 @@ __all(){
 	__gnome_tweaks
 	__gnome_extensions
 	__ohmyposh
+	__vpn
 }
 
 case $1 in
@@ -86,6 +109,8 @@ case $1 in
 	tweaks) __gnome_tweaks;;
 	extensions) __gnome_extensions;;
 	ohmyposh) __ohmyposh;;
+	vpn) __vpn;;
 	all) __all;;
+	help | -h) __help;;
 	*) echo "Bad commands execution. No actions taken."; exit 1;;
 esac

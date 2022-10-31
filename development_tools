@@ -95,6 +95,28 @@ __intellij() {
 	mv /tmp/idea-* $HOME/.intellij
 }
 
+help(){
+	echo "Persona development tools script"
+	echo ""
+	echo "terminator		Install terminator"
+	echo "vim				Install vim"
+	echo "git				Install git"
+	echo "vscode			Install vscode"
+	echo "dbeaver			Install dbeaver"
+	echo "npm				Install npm"
+	echo "nvm				Install nvm"
+	echo "maven				Install maven"
+	echo "yarn				Install yarn"
+	echo "docker			Install docker"
+	echo "docker-compose	Install docker-compose"
+	echo "node				Install node"
+	echo "quarkus			Install quarkus"
+	echo "gcloud			Install gcloud sdk"
+	echo "kubectl			Install kubernetes"
+	echo "intellij			Install intellij"
+	echo "all				Install all the development tools mentioned above"
+}
+
 
 __all(){
 	__terminator
@@ -133,5 +155,6 @@ case $1 in
 	kubectl) __kubectl;;
 	intellij) __intellij;;
 	all) __all;;
+	help | -h) __help;;
 	*) echo "Bad command execution. No actions taken."; exit 1;;
 esac
