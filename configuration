@@ -196,8 +196,7 @@ case $1 in
 	vpn) __vpn;;
 	ssh) __ssh;;
 	all) all;;
-	help | -h) __help;;
-	*) __help;;
+	help | -h | *) __help;;
 esac 
 
 # 	echo 'https://extensions.gnome.org/extension/307/dash-to-dock/'

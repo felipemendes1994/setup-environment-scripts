@@ -111,6 +111,5 @@ case $1 in
 	ohmyposh) __ohmyposh;;
 	vpn) __vpn;;
 	all) __all;;
-	help | -h) __help;;
-	*) echo "Bad commands execution. No actions taken."; exit 1;;
+	help | -h | *) __help;;
 esac

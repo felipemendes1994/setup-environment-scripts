@@ -155,6 +155,5 @@ case $1 in
 	kubectl) __kubectl;;
 	intellij) __intellij;;
 	all) __all;;
-	help | -h) __help;;
-	*) echo "Bad command execution. No actions taken."; exit 1;;
+	help | -h | *) __help;;
 esac
