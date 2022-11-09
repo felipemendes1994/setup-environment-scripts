@@ -132,8 +132,12 @@ __ohmyposh() {
 
 __vpn(){
 	echo "Setting up vpn..."
-	# cp /media/$USER/PENDRIVE/config/vpn/default-vpn.ovpn ~/.vpn
-	cp /media/$USER/PENDRIVE/config/vpn/default-vpn.ovpn /tmp
+	cp /media/$USER/PENDRIVE/config/vpn/default-vpn.ovpn ~/.vpn
+}
+
+__setup_sshkeys_on_git_projects(){
+	cd $HOME/Documentos/pessoais/setup-environment-files; git config core.sshCommand "ssh -i ~/.ssh/github_rsa"
+	cd $HOME/Documentos/pessoais/setup-environment-scripts; git config core.sshCommand "ssh -i ~/.ssh/github_rsa"
 }
 
 __ssh(){
@@ -142,7 +146,11 @@ __ssh(){
 	chmod 600 $HOME/.ssh/*
 	chmod 644 $HOME/.ssh/*.pub
 	ssh-add $HOME/.ssh/id_rsa $HOME/.ssh/github_rsa
+	
+	__setup_sshkeys_on_git_projects
 }
+
+
 
 __help(){
 	echo "Personal configuration script"
@@ -189,7 +197,7 @@ case $1 in
 	ssh) __ssh;;
 	all) all;;
 	help | -h) __help;;
-	*) echo "No parameters provided. No actions taken."; exit 1;;
+	*) __help;;
 esac 
 
 # 	echo 'https://extensions.gnome.org/extension/307/dash-to-dock/'
