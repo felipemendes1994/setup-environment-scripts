@@ -43,7 +43,7 @@ __clone_setup_environment_files() {
 	# echo 'Cloning repository with basic files for configuration...'
 	curl -L https://github.com/felipemendes1994/setup-environment-files/archive/refs/heads/master.zip -o ~/Downloads/setup-environment-files.zip
 	unzip ~/Downloads/setup-environment-files.zip
-	cp -R ~/Downloads/setup-environment-files ~/Documentos/pessoais
+	mv -R ~/Downloads/setup-environment-files ~/Documentos/pessoais
 	trash ~/Downloads/setup-environment-files.zip
 }
 
