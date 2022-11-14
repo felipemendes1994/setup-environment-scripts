@@ -150,6 +150,14 @@ __ssh(){
 	__setup_sshkeys_on_git_projects
 }
 
+__musics(){
+	cp /media/$USER/PENDRIVE/files/music ~/Música
+}
+
+__images(){
+	cp /media/$USER/PENDRIVE/files/images ~/Imagens
+}
+
 
 
 __help(){
@@ -166,6 +174,8 @@ __help(){
 	echo "myposh		Setup oh my posh fonts"
 	echo "vpn			Setup vpn"
 	echo "ssh			Setup ssh keys"
+	echo "musics			Copy musics to pc"
+	echo "images		Copy Images to pc"
 	echo "all			Run all options mentioned above"
 }
 
@@ -181,6 +191,8 @@ __all() {
 	__ohmyposh
 	__vpn
 	__ssh
+	__musics
+	__images
 }
 
 case $1 in
@@ -195,6 +207,8 @@ case $1 in
 	myposh) __ohmyposh;;
 	vpn) __vpn;;
 	ssh) __ssh;;
+	musics) __musics;;
+	images) __images;;
 	all) all;;
 	help | -h | *) __help;;
 esac 
