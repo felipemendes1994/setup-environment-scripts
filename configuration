@@ -158,25 +158,30 @@ __images(){
 	cp /media/$USER/PENDRIVE/files/images ~/Imagens
 }
 
+__maplink-note(){
+	cp /media/$USER/PENDRIVE/maplink/anotacoes ~/Documentos/maplink/
+}
+
 
 
 __help(){
 	echo "Personal configuration script"
 	echo ""
-	echo "folders		Create needed folders"
-	echo "commands		Create symbolical link to personal commands"
-	echo "aliases		Create symbolical link to bash_aliases file"
-	echo "shortcuts		Create symbolical link to personal shortcuts"
-	echo "sef			Download personal environment files from github"
-	echo "brave			Replace brave files with local ones"
-	echo "extensions	Install needed gnome-shell-extensions"
-	# echo "config		Import gnome-shell configurations to SO"
-	echo "myposh		Setup oh my posh fonts"
-	echo "vpn			Setup vpn"
-	echo "ssh			Setup ssh keys"
+	echo "folders			Create needed folders"
+	echo "commands			Create symbolical link to personal commands"
+	echo "aliases			Create symbolical link to bash_aliases file"
+	echo "shortcuts			Create symbolical link to personal shortcuts"
+	echo "sef				Download personal environment files from github"
+	echo "brave				Replace brave files with local ones"
+	echo "extensions		Install needed gnome-shell-extensions"
+	# echo "config			Import gnome-shell configurations to SO"
+	echo "myposh			Setup oh my posh fonts"
+	echo "vpn				Setup vpn"
+	echo "ssh				Setup ssh keys"
 	echo "musics			Copy musics to pc"
-	echo "images		Copy Images to pc"
-	echo "all			Run all options mentioned above"
+	echo "images			Copy Images to pc"
+	echo "maplink-notes		Copy Maplink notes to pc"
+	echo "all				Run all options mentioned above"
 }
 
 __all() {
@@ -193,6 +198,7 @@ __all() {
 	__ssh
 	__musics
 	__images
+	__maplink_notes
 }
 
 case $1 in
@@ -209,6 +215,7 @@ case $1 in
 	ssh) __ssh;;
 	musics) __musics;;
 	images) __images;;
+	maplink-notes) __maplink-notes;;
 	all) all;;
 	help | -h | *) __help;;
 esac 
