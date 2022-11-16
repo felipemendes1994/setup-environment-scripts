@@ -212,7 +212,7 @@ case $1 in
 	ssh) __ssh;;
 	musics) __musics;;
 	images) __images;;
-	maplink-notes) __maplink-notes;;
+	maplink-notes) __maplink_notes;;
 	all) all;;
 	help | -h | *) __help;;
 esac 
