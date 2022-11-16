@@ -54,7 +54,8 @@ __ohmyposh(){
 
 __vpn(){
 	curl -fsSL https://swupdate.openvpn.net/repos/openvpn-repo-pkg-key.pub | gpg --dearmor | sudo tee /usr/share/keyrings/openvpn-repo-pkg-keyring.gpg
-	echo "deb [signed-by=/usr/share/keyrings/openvpn-repo-pkg-keyring.gpg] https://swupdate.openvpn.net/community/openvpn3/repos $(lsb_release -c) main" | sudo tee -a /etc/apt/sources.list.d/openvpn3.list
+	DIST=lsb_release -c
+	echo "deb [signed-by=/usr/share/keyrings/openvpn-repo-pkg-keyring.gpg] https://swupdate.openvpn.net/community/openvpn3/repos $DIST main" | sudo tee -a /etc/apt/sources.list.d/openvpn3.list
 	sudo apt update
 	sudo apt install openvpn3
 }
@@ -81,7 +82,7 @@ __help(){
 
 __all(){
 	__postman
-	__discord
+	# __discord
 	__slack
 	# __teams
 	__spotify

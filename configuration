@@ -11,7 +11,6 @@ __folders() {
 	# mkdir -p ~/.workspaces/test
 }
 
-
 __commands() {
 	# echo 'Addind ~/.local/bin to PATH'
 	BIN='/home/felipe/.local/bin'
@@ -37,15 +36,16 @@ __shortcuts() {
 
 __maplink_notes() {
 	ln -s $HOME/Documentos/maplink/anotacoes $HOME/Documentos/pessoais/maplink
+	cp /media/$USER/PENDRIVE/maplink/anotacoes ~/Documentos/maplink/
 }
 
-__clone_setup_environment_files() {
-	# echo 'Cloning repository with basic files for configuration...'
-	curl -L https://github.com/felipemendes1994/setup-environment-files/archive/refs/heads/master.zip -o ~/Downloads/setup-environment-files.zip
-	unzip ~/Downloads/setup-environment-files.zip
-	mv -R ~/Downloads/setup-environment-files ~/Documentos/pessoais
-	trash ~/Downloads/setup-environment-files.zip
-}
+# __clone_setup_environment_files() {
+# 	# echo 'Cloning repository with basic files for configuration...'
+# 	curl -L https://github.com/felipemendes1994/setup-environment-files/archive/refs/heads/master.zip -o ~/Downloads/setup-environment-files.zip
+# 	unzip ~/Downloads/setup-environment-files.zip
+# 	mv -R ~/Downloads/setup-environment-files ~/Documentos/pessoais
+# 	trash ~/Downloads/setup-environment-files.zip
+# }
 
 __setup_brave(){
 	echo 'Configuring Brave'
@@ -147,7 +147,7 @@ __ssh(){
 	chmod 644 $HOME/.ssh/*.pub
 	ssh-add $HOME/.ssh/id_rsa $HOME/.ssh/github_rsa
 	
-	__setup_sshkeys_on_git_projects
+	# __setup_sshkeys_on_git_projects
 }
 
 __musics(){
@@ -156,10 +156,6 @@ __musics(){
 
 __images(){
 	cp /media/$USER/PENDRIVE/files/images ~/Imagens
-}
-
-__maplink-note(){
-	cp /media/$USER/PENDRIVE/maplink/anotacoes ~/Documentos/maplink/
 }
 
 
@@ -171,7 +167,7 @@ __help(){
 	echo "commands			Create symbolical link to personal commands"
 	echo "aliases			Create symbolical link to bash_aliases file"
 	echo "shortcuts			Create symbolical link to personal shortcuts"
-	echo "sef				Download personal environment files from github"
+	# echo "sef				Download personal environment files from github"
 	echo "brave				Replace brave files with local ones"
 	echo "extensions		Install needed gnome-shell-extensions"
 	# echo "config			Import gnome-shell configurations to SO"
@@ -185,11 +181,11 @@ __help(){
 }
 
 __all() {
-	__folders
+	# __folders
 	__commands
 	__aliases
 	__shortcuts
-	__clone_setup_environment_files
+	# __clone_setup_environment_files
 	__setup_brave
 	__gnome_extensions
 	__gnome_configurations
@@ -206,7 +202,7 @@ case $1 in
 	commands) __commands;;
 	aliases) __aliases;;
 	shortcuts) __shortcuts;;
-	sef) __clone_setup_environment_files;;
+	# sef) __clone_setup_environment_files;;
 	brave) __setup_brave;;
 	extensions) __gnome_extensions;;
 	config) __gnome_configurations;;

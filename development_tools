@@ -124,13 +124,13 @@ __all(){
 	__git
 	__vscode
 	__dbeaver
-	__npm
-	__nvm
+	# __npm
+	# __nvm
 	__maven
-	__yarn
+	# __yarn
 	__docker
 	__docker_compose
-	__nodejs
+	# __nodejs
 	__quarkus_cli
 	__google_cloud_sdk
 	__kubectl
