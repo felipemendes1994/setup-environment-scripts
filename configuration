@@ -32,6 +32,7 @@ __shortcuts() {
 	#ln -s $ORIGEM $DESTINO
 	ln -s $HOME/Documentos/pessoais/setup-environment-files/atalhos/notas.desktop $HOME/.local/share/applications/notas.desktop
 	ln -s $HOME/Documentos/pessoais/setup-environment-files/atalhos/intellij.desktop $HOME/.local/share/applications/intellij.desktop
+	ln -s $HOME/Documentos/pessoais/setup-environment-files/atalhos/postman.desktop $HOME/.local/share/applications/postman.desktop
 }
 
 __maplink_notes() {
