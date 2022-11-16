@@ -1,6 +1,8 @@
 #!/bin/bash
 __postman(){
-	sudo snap install postman
+	# sudo snap install postman
+	wget https://dl.pstmn.io/download/latest/linux64 -o /tmp/postman.deb
+	sudo dpkg -i /tmp/postman.deb
 }
 
 __discord(){
