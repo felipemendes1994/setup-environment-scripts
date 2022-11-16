@@ -2,8 +2,9 @@
 __postman(){
 	# sudo snap install postman
 	wget https://dl.pstmn.io/download/latest/linux64 -O /tmp/postman-linux-x64.tar.gz
-	tar -zxvf /tmp/postman-linux-x64.tar.gz
-	sudo mv /tmp/Postman /opt
+	cd /tmp
+	tar -zxvf ./postman-linux-x64.tar.gz
+	sudo mv ./Postman /opt
 	sudo ln -s /opt/Postman/Postman /usr/local/bin/postman
 }
 

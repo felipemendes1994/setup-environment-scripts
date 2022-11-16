@@ -152,11 +152,11 @@ __ssh(){
 }
 
 __musics(){
-	cp /media/$USER/PENDRIVE/files/music ~/Música
+	cp -R /media/$USER/PENDRIVE/files/music ~/Música
 }
 
 __images(){
-	cp /media/$USER/PENDRIVE/files/images ~/Imagens
+	cp -R /media/$USER/PENDRIVE/files/images ~/Imagens
 }
 
 
