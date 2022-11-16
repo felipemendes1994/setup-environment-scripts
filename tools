@@ -10,7 +10,9 @@ __discord(){
 }
 
 __slack(){
-	sudo snap install slack
+	# sudo snap install slack
+	wget https://downloads.slack-edge.com/releases/linux/4.28.184/prod/x64/slack-desktop-4.28.184-amd64.deb -o /tmp/slack-desktop-4.28.184-amd64.deb
+	sudo dpkg -i /tmp/slack-desktop-4.28.184-amd64.deb
 }
 
 __teams(){
@@ -18,9 +20,11 @@ __teams(){
 }
 
 __spotify(){
-	curl -sS https://download.spotify.com/debian/pubkey_5E3C45D7B312C643.gpg | sudo apt-key add - 
-	echo "deb http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sources.list.d/spotify.list
-	sudo apt-get update && sudo apt-get install spotify-client
+
+	curl -fsSL https://download.spotify.com/debian/pubkey_5E3C45D7B312C643.gpg | gpg --dearmor | sudo tee /usr/share/keyrings/spotify.gpg
+	# curl -sS https://download.spotify.com/debian/pubkey_5E3C45D7B312C643.gpg | sudo apt-key add - 
+	echo "deb [signed-by=/usr/share/keyrings/spotify.gpg] http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sources.list.d/spotify.list
+	sudo apt update && sudo apt install spotify-client -y
 }
 
 __libre_office(){
@@ -32,7 +36,7 @@ __whatsapp(){
 }
 
 __notion(){
-	sudo snap install notion-snap
+	sudo apt install notion -y
 }
 
 __trello(){
