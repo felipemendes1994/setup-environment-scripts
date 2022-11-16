@@ -1,11 +1,10 @@
 #!/bin/bash
 __postman(){
 	# sudo snap install postman
-	wget https://dl.pstmn.io/download/latest/linux64 -o /tmp/postman-linux-x64.tar.gz
-	tar zxvf /tmp/postman-linux-x64.tar.gz
+	wget https://dl.pstmn.io/download/latest/linux64 -O /tmp/postman-linux-x64.tar.gz
+	tar -zxvf /tmp/postman-linux-x64.tar.gz
 	sudo mv /tmp/Postman /opt
 	sudo ln -s /opt/Postman/Postman /usr/local/bin/postman
-	https://dl.pstmn.io/download/latest/linux64
 }
 
 __discord(){
@@ -14,7 +13,7 @@ __discord(){
 
 __slack(){
 	# sudo snap install slack
-	cd /tmp && wget https://downloads.slack-edge.com/releases/linux/4.28.184/prod/x64/slack-desktop-4.28.184-amd64.deb
+	cd /tmp; wget https://downloads.slack-edge.com/releases/linux/4.28.184/prod/x64/slack-desktop-4.28.184-amd64.deb
 	sudo dpkg -i /tmp/slack-desktop-4.28.184-amd64.deb
 }
 
