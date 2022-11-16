@@ -37,7 +37,7 @@ __shortcuts() {
 
 __maplink_notes() {
 	ln -s $HOME/Documentos/maplink/anotacoes $HOME/Documentos/pessoais/maplink
-	cp /media/$USER/PENDRIVE/maplink/anotacoes ~/Documentos/maplink/
+	cp -R /media/$USER/PENDRIVE/maplink/anotacoes ~/Documentos/maplink/
 }
 
 # __clone_setup_environment_files() {
