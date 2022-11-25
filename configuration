@@ -7,8 +7,6 @@ __folders() {
 	mkdir -p ~/.local/bin
 	mkdir -p ~/.vpn
 	mkdir -p ~/.local/share/gnome-shell/extensions
-	# mkdir -p ~/.workspaces/develop
-	# mkdir -p ~/.workspaces/test
 }
 
 __commands() {
@@ -17,9 +15,9 @@ __commands() {
 	export PATH="$BIN:$PATH"
 	ln -s $HOME/Documentos/pessoais/setup-environment-files/comandos/backup $BIN/backup
 	ln -s $HOME/Documentos/pessoais/setup-environment-files/comandos/commit $BIN/commit
-    ln -s $HOME/Documentos/pessoais/setup-environment-files/comandos/vpnc $BIN/bin/vpnc
-    ln -s $HOME/Documentos/pessoais/setup-environment-files/comandos/vpnd $BIN/bin/vpnd
-    ln -s $HOME/Documentos/pessoais/setup-environment-files/comandos/vpns $BIN/bin/vpns
+	ln -s $HOME/Documentos/pessoais/setup-environment-files/comandos/vpnc /home/felipe/.local/bin/vpnc
+	ln -s $HOME/Documentos/pessoais/setup-environment-files/comandos/vpnd /home/felipe/.local/bin/vpnd
+	ln -s $HOME/Documentos/pessoais/setup-environment-files/comandos/vpns /home/felipe/.local/bin/vpns
 }
 
 __aliases() {
