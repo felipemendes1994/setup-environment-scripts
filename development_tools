@@ -69,8 +69,8 @@ __nodejs(){
 }
 
 __quarkus_cli(){
-	curl -Ls https://sh.jbang.dev | bash -s - trust add https://repo1.maven.org/maven2/io/quarkus/quarkus-cli/
-	curl -Ls https://sh.jbang.dev | bash -s - app install --fresh --force quarkus@quarkusio
+	curl -Ls https://sh.jbang.dev | zsh -s - trust add https://repo1.maven.org/maven2/io/quarkus/quarkus-cli/
+	curl -Ls https://sh.jbang.dev | zsh -s - app install --fresh --force quarkus@quarkusio
 	jbang app install --fresh --force quarkus@quarkusio
 
 	source <(quarkus completion)
@@ -79,7 +79,8 @@ __quarkus_cli(){
 __google_cloud_sdk() {
 	echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
 	curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key --keyring /usr/share/keyrings/cloud.google.gpg add -
-	sudo apt-get update && sudo apt-get install -y google-cloud-cli
+	sudo apt-get update && sudo apt-get install google-cloud-cli -y 
+	sudo apt install google-cloud-sdk-gke-gcloud-auth-plugin -y
 }
 
 __kubectl() {
@@ -90,9 +91,14 @@ __kubectl() {
 }
 
 __intellij() {
-	curl -L https://download.jetbrains.com/idea/ideaIU-2022.2.3.tar.gz -o /tmp/ideaIU-2022.2.3.tar.gz
-	tar -xvf /tmp/ideaIU-2022.2.3.tar.gz -C /tmp
+	curl -L https://download.jetbrains.com/idea/ideaIU-2022.3.1.tar.gz -o /tmp/ideaIU-2022.3.1.tar.gz
+	tar -xvf /tmp/ideaIU-2022.3.1.tar.gz -C /tmp
 	mv /tmp/idea-* $HOME/.intellij
+}
+
+__mongo_compass(){
+	wget https://downloads.mongodb.com/compass/mongodb-compass_1.34.1_amd64.deb
+	sudo dpkg -i mongodb-compass_1.34.1_amd64.deb
 }
 
 help(){
@@ -114,6 +120,7 @@ help(){
 	echo "gcloud			Install gcloud sdk"
 	echo "kubectl			Install kubernetes"
 	echo "intellij			Install intellij"
+	echo "mongo compass 	Install Mongo Compass"
 	echo "all				Install all the development tools mentioned above"
 }
 
@@ -135,6 +142,7 @@ __all(){
 	__google_cloud_sdk
 	__kubectl
 	__intellij
+	__mongo_compass
 }
 
 case $1 in
@@ -154,6 +162,7 @@ case $1 in
 	gcloud) __google_cloud_sdk;;
 	kubectl) __kubectl;;
 	intellij) __intellij;;
+	mongo) __mongo_compass;;
 	all) __all;;
 	help | -h | *) __help;;
 esac

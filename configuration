@@ -15,14 +15,16 @@ __commands() {
 	export PATH="$BIN:$PATH"
 	ln -s $HOME/Documentos/pessoais/setup-environment-files/comandos/backup $BIN/backup
 	ln -s $HOME/Documentos/pessoais/setup-environment-files/comandos/commit $BIN/commit
-	ln -s $HOME/Documentos/pessoais/setup-environment-files/comandos/vpnc /home/felipe/.local/bin/vpnc
-	ln -s $HOME/Documentos/pessoais/setup-environment-files/comandos/vpnd /home/felipe/.local/bin/vpnd
-	ln -s $HOME/Documentos/pessoais/setup-environment-files/comandos/vpns /home/felipe/.local/bin/vpns
+	ln -s $HOME/Documentos/pessoais/setup-environment-files/comandos/vpn $BIN/vpn
+	# ln -s $HOME/Documentos/pessoais/setup-environment-files/comandos/vpnc /home/felipe/.local/bin/vpnc
+	# ln -s $HOME/Documentos/pessoais/setup-environment-files/comandos/vpnd /home/felipe/.local/bin/vpnd
+	# ln -s $HOME/Documentos/pessoais/setup-environment-files/comandos/vpns /home/felipe/.local/bin/vpns
 }
 
 __aliases() {
 	# echo 'Creating symbolical link to bash_aliases...'
 	ln -s $HOME/Documentos/pessoais/setup-environment-files/bash_aliases $HOME/.bash_aliases
+	ln -s $HOME/Documentos/pessoais/setup-environment-files/bash_aliases $HOME/.aliases
 }
 
 __shortcuts() {
@@ -72,51 +74,15 @@ __gnome_extensions() {
 	cd ~/.local/share/gnome-shell/extensions/
 
     echo "Need adjustments"
+	# https://manpages.ubuntu.com/manpages/focal/man1/gnome-extensions.1.html
+	# gnome-extensions --help
 
-	# echo 'Now its time to enable gnome extensions directly in your browser... '
-	# echo 'Open the following urls and dont forget to customize them...'
-	# echo ''
-	# read -p '' -n1 -s
-
-	# Dash to panel/ Dash to dock
-	# echo 'https://extensions.gnome.org/extension/307/dash-to-dock/'
-	# read -p '' -n1 -s
-
-	# Desktop Icons
-	# echo 'https://extensions.gnome.org/extension/1465/desktop-icons/'
-	# read -p '' -n1 -s
-
-	# sound input and output device chooser
-	# https://github.com/kgshank/gse-sound-output-device-chooser
-	# echo 'sound-output-device-chooser'
-	# curl -L https://github.com/kgshank/gse-sound-output-device-chooser/archive/refs/heads/master.zip -o ./gse-sound-output-device-chooser.zip
-	# unzip ./gse-sound-output-device-chooser.zip 
-	# cp -r ./gse-sound-output-device-chooser-master/sound-output-device-chooser@kgshank.net .
-	# trash gse-sound-output-device-chooser-master gse-sound-output-device-chooser.zip
-	# read -p 'Sound-output-device-chooser installation finished successfully...' -n1 -s
-
-	# status area horizontal spacing
-	echo 'status-area-horizontal-spacing'
-	curl -L https://gitlab.com/p91paul/status-area-horizontal-spacing-gnome-shell-extension/-/archive/master/status-area-horizontal-spacing-gnome-shell-extension-master.zip -o ./status-area-horizontal-spacing.zip
-	unzip ./status-area-horizontal-spacing.zip
-	mv ./status-area-horizontal-spacing-gnome-shell-extension-master/status-area-horizontal-spacing@mathematical.coffee.gmail.com .
-	trash ./status-area-horizontal-spacing-gnome-shell-extension-master ./status-area-horizontal-spacing.zip
-	# read -p 'Status-area-horizontal-spacing installation finished successfully...' -n1 -s
-
-	# system monitor
-	# echo 'https://extensions.gnome.org/extension/120/system-monitor/'
-	curl -L https://github.com/paradoxxxzero/gnome-shell-system-monitor-applet/archive/refs/heads/master.zip -o gnome-shell-system-monitor-applet.zip
-	unzip ./gnome-shell-system-monitor-applet.zip
-	# mv ./gnome-shell-system-monitor-applet-master/system-monitor@paradoxxx.zero.gmail.com .
-	# trash ./gnome-shell-system-monitor-applet-master ./gnome-shell-system-monitor-applet.zip
-	# read -p 'System-monitor installation finished successfully...' -n1 -s
-
-	# vpn indicator
-	# echo 'https://extensions.gnome.org/extension/1134/vpn-indicator/'
-	curl -L https://github.com/howdoicomputer/vpn-indicator-shell-extension/archive/refs/heads/master.zip -o vpn-indicator.zip
-	unzip ./vpn-indicator.zip
-	sh ./vpn-indicator-shell-extension-master/install.sh
-	trash vpn-indicator-shell-extension-master/ vpn-indicator.zip
+	# sound-output-device-chooser@kgshank.net
+	# status-area-horizontal-spacing@mathematical.coffee.gmail.com
+	# gTile@vibou
+	# vpn-indicator@howdoicomputer.fastmail.com
+	# blur-my-shell@aunetx
+	# dash-to-dock@micxgx.gmail.com
 }
 
 __gnome_configurations(){
@@ -157,7 +123,9 @@ __images(){
 	cp -R /media/$USER/PENDRIVE/files/images ~/Imagens
 }
 
-
+__zsh(){
+	chsh -s /bin/zsh
+}
 
 __help(){
 	echo "Personal configuration script"
@@ -176,6 +144,7 @@ __help(){
 	echo "musics			Copy musics to pc"
 	echo "images			Copy Images to pc"
 	echo "maplink-notes		Copy Maplink notes to pc"
+	echo "zsh				Set ZSH as default shell"
 	echo "all				Run all options mentioned above"
 }
 
@@ -193,6 +162,7 @@ __all() {
 	__ssh
 	__musics
 	__images
+	__zsh
 	__maplink_notes
 }
 
@@ -211,6 +181,7 @@ case $1 in
 	musics) __musics;;
 	images) __images;;
 	maplink-notes) __maplink_notes;;
+	zsh) __zsh;;
 	all) all;;
 	help | -h | *) __help;;
 esac 

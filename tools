@@ -23,7 +23,6 @@ __teams(){
 }
 
 __spotify(){
-
 	curl -fsSL https://download.spotify.com/debian/pubkey_5E3C45D7B312C643.gpg | gpg --dearmor | sudo tee /usr/share/keyrings/spotify.gpg
 	# curl -sS https://download.spotify.com/debian/pubkey_5E3C45D7B312C643.gpg | sudo apt-key add - 
 	echo "deb [signed-by=/usr/share/keyrings/spotify.gpg] http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sources.list.d/spotify.list
@@ -71,6 +70,10 @@ __vpn(){
 	sudo apt install openvpn3
 }
 
+__zsh(){
+	sudo apt install zsh -y
+}
+
 __help(){
 	echo "Persona tools script"
 	echo ""
@@ -87,6 +90,7 @@ __help(){
 	echo "extensions		Install Gnome Extensions"
 	echo "ohmyposh			Install Oh My Posh"
 	echo "vpn				Install Openvpn3"
+	echo "zsh				Install Zshell"
 	echo "all				Install all tools mentioned above"
 }
 
@@ -106,6 +110,7 @@ __all(){
 	__gnome_extensions
 	__ohmyposh
 	__vpn
+	__zsh
 }
 
 case $1 in
@@ -122,6 +127,7 @@ case $1 in
 	extensions) __gnome_extensions;;
 	ohmyposh) __ohmyposh;;
 	vpn) __vpn;;
+	zsh) __zsh;;
 	all) __all;;
 	help | -h | *) __help;;
 esac
