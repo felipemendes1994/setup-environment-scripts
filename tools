@@ -74,6 +74,10 @@ __zsh(){
 	sudo apt install zsh -y
 }
 
+__keepassxc(){
+	sudo apt install keypassxc -y
+}
+
 __help(){
 	echo "Persona tools script"
 	echo ""
@@ -91,6 +95,7 @@ __help(){
 	echo "ohmyposh			Install Oh My Posh"
 	echo "vpn				Install Openvpn3"
 	echo "zsh				Install Zshell"
+	echo "zsh				Install KeePassXC"
 	echo "all				Install all tools mentioned above"
 }
 
@@ -111,6 +116,7 @@ __all(){
 	__ohmyposh
 	__vpn
 	__zsh
+	__keepassxc
 }
 
 case $1 in
@@ -128,6 +134,7 @@ case $1 in
 	ohmyposh) __ohmyposh;;
 	vpn) __vpn;;
 	zsh) __zsh;;
+	keepassxc) __keepassxc;;
 	all) __all;;
 	help | -h | *) __help;;
 esac

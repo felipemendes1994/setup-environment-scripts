@@ -127,6 +127,14 @@ __zsh(){
 	chsh -s /bin/zsh
 }
 
+__logs(){
+	sudo mkdir /var/log/backups
+	sudo touch /var/log/backups/gdrive-backup.log
+	sudo touch /var/log/backups/backup.log
+	sudo chown -R felipe /var/log/backups
+	sudo chmod 750 /var/log/backups/gdrive-backup.log /var/log/backups/backup.log
+}
+
 __help(){
 	echo "Personal configuration script"
 	echo ""
