@@ -153,6 +153,7 @@ __help(){
 	echo "images			Copy Images to pc"
 	echo "maplink-notes		Copy Maplink notes to pc"
 	echo "zsh				Set ZSH as default shell"
+	echo "logs				Create folder and files for backup logs"
 	echo "all				Run all options mentioned above"
 }
 
@@ -171,6 +172,7 @@ __all() {
 	__musics
 	__images
 	__zsh
+	__logs
 	__maplink_notes
 }
 
@@ -190,6 +192,7 @@ case $1 in
 	images) __images;;
 	maplink-notes) __maplink_notes;;
 	zsh) __zsh;;
+	logs) __logs;;
 	all) all;;
 	help | -h | *) __help;;
 esac 
