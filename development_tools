@@ -79,29 +79,42 @@ __quarkus_cli(){
 __google_cloud_sdk() {
 	echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
 	curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key --keyring /usr/share/keyrings/cloud.google.gpg add -
-	sudo apt-get update && sudo apt-get install google-cloud-cli -y 
+	sudo apt update && sudo apt install google-cloud-cli -y 
 	sudo apt install google-cloud-sdk-gke-gcloud-auth-plugin -y
 }
 
 __kubectl() {
-	sudo curl -fsSLo /usr/share/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
-	echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
-	sudo apt-get update
-	sudo apt-get install -y kubectl
+	curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+    curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl.sha256"
+	echo "$(cat kubectl.sha256)  kubectl" | sha256sum --check
+	sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
 }
 
 __intellij() {
-	curl -L https://download.jetbrains.com/idea/ideaIU-2022.3.1.tar.gz -o /tmp/ideaIU-2022.3.1.tar.gz
-	tar -xvf /tmp/ideaIU-2022.3.1.tar.gz -C /tmp
+	curl -L https://download.jetbrains.com/idea/ideaIU-2023.3.3.tar.gz -o /tmp/ideaIU-2023.3.3.tar.gz
+	tar -xvf /tmp/ideaIU-2023.3.3.tar.gz -C /tmp
 	mv /tmp/idea-* $HOME/.intellij
 }
 
 __mongo_compass(){
-	wget https://downloads.mongodb.com/compass/mongodb-compass_1.34.1_amd64.deb
-	sudo dpkg -i mongodb-compass_1.34.1_amd64.deb
+	cd /tmp; wget https://downloads.mongodb.com/compass/mongodb-compass_1.42.0_amd64.deb
+	sudo dpkg -i /tmp/mongodb-compass_1.42.0_amd64.deb
 }
 
-help(){
+__gh_cli(){
+	# (type -p wget >/dev/null || (sudo apt update && sudo apt install wget -y)) \
+	# && sudo mkdir -p -m 755 /etc/apt/keyrings \
+	# && out=$(mktemp) && wget -nv -O$out https://cli.github.com/packages/githubcli-archive-keyring.gpg \
+	# && cat $out | sudo tee /etc/apt/keyrings/githubcli-archive-keyring.gpg > /dev/null \
+	# && sudo chmod go+r /etc/apt/keyrings/githubcli-archive-keyring.gpg \
+	# && sudo mkdir -p -m 755 /etc/apt/sources.list.d \
+	# && echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null \
+	# && sudo apt update \
+	# && sudo apt install gh -y
+	sudo apt install gh
+}
+
+__help(){
 	echo "Persona development tools script"
 	echo ""
 	echo "terminator		Install terminator"
@@ -120,10 +133,10 @@ help(){
 	echo "gcloud			Install gcloud sdk"
 	echo "kubectl			Install kubernetes"
 	echo "intellij			Install intellij"
-	echo "mongo compass 	Install Mongo Compass"
+	echo "mongo          	Install Mongo Compass"
+	echo "github cli       	Install GitHub Cli"
 	echo "all				Install all the development tools mentioned above"
 }
-
 
 __all(){
 	__terminator
@@ -143,6 +156,7 @@ __all(){
 	__kubectl
 	__intellij
 	__mongo_compass
+	__gh_cli
 }
 
 case $1 in
@@ -153,7 +167,7 @@ case $1 in
 	dbeaver) __dbeaver;;
 	npm) __npm;;
 	nvm) __nvm;;
-	maven) __maven;;
+	maven) __maven;; # PRECISA INSTALL MAVEN 3.9 E INSTALAR VIA PATH
 	yarn) __yarn;;
 	docker) __docker;;
 	docker-compose) __docker_compose;;
@@ -163,6 +177,7 @@ case $1 in
 	kubectl) __kubectl;;
 	intellij) __intellij;;
 	mongo) __mongo_compass;;
+	gh) __gh_cli
 	all) __all;;
 	help | -h | *) __help;;
 esac

@@ -2,37 +2,43 @@
 
 __folders() {
 	# echo 'Creating needed folders'
-	mkdir -p ~/Documentos/pessoais
+	# mkdir -p ~/Documentos/pessoais
 	mkdir -p ~/Documentos/maplink
 	mkdir -p ~/.local/bin
+	mkdir -p ~/.local/files
 	mkdir -p ~/.vpn
 	mkdir -p ~/.local/share/gnome-shell/extensions
+	mkdir -p ~/.intellij
+	mkdir -p ~/.oh-my-posh
 }
 
 __commands() {
 	# echo 'Addind ~/.local/bin to PATH'
 	BIN='/home/felipe/.local/bin'
-	export PATH="$BIN:$PATH"
-	ln -s $HOME/Documentos/pessoais/setup-environment-files/comandos/backup $BIN/backup
-	ln -s $HOME/Documentos/pessoais/setup-environment-files/comandos/commit $BIN/commit
-	ln -s $HOME/Documentos/pessoais/setup-environment-files/comandos/vpn $BIN/vpn
-	# ln -s $HOME/Documentos/pessoais/setup-environment-files/comandos/vpnc /home/felipe/.local/bin/vpnc
-	# ln -s $HOME/Documentos/pessoais/setup-environment-files/comandos/vpnd /home/felipe/.local/bin/vpnd
-	# ln -s $HOME/Documentos/pessoais/setup-environment-files/comandos/vpns /home/felipe/.local/bin/vpns
+	# ln -s $HOME/Documentos/pessoais/configuration/files/comandos $HOME/.local/bin
+	# export PATH="$BIN:$PATH"
+	ln -s $HOME/Documentos/pessoais/configuration/files/comandos/vpn $HOME/.local/bin/vpn
+	ln -s $HOME/Documentos/pessoais/configuration/files/comandos/k8s $HOME/.local/bin/k8s
+	ln -s $HOME/Documentos/pessoais/configuration/files/comandos/maplink $HOME/.local/bin/maplink
+	# ln -s $HOME/Documentos/pessoais/configuration/files/comandos/backup $BIN/backup
+	# ln -s $HOME/Documentos/pessoais/configuration/files/comandos/commit $BIN/commit
+	# ln -s $HOME/Documentos/pessoais/configuration/files/comandos/vpnc /home/felipe/.local/bin/vpnc
+	# ln -s $HOME/Documentos/pessoais/configuration/files/comandos/vpnd /home/felipe/.local/bin/vpnd
+	# ln -s $HOME/Documentos/pessoais/configuration/files/comandos/vpns /home/felipe/.local/bin/vpns
 }
 
 __aliases() {
 	# echo 'Creating symbolical link to bash_aliases...'
-	ln -s $HOME/Documentos/pessoais/setup-environment-files/bash_aliases $HOME/.bash_aliases
-	ln -s $HOME/Documentos/pessoais/setup-environment-files/bash_aliases $HOME/.aliases
+	# ln -s $HOME/Documentos/pessoais/configuration/files/bash_aliases $HOME/.bash_aliases
+	ln -s $HOME/Documentos/pessoais/configuration/files/bash_aliases $HOME/.aliases
 }
 
 __shortcuts() {
 	# echo 'Creating shortcut for notes in menu...'
-	#ln -s $ORIGEM $DESTINO
-	ln -s $HOME/Documentos/pessoais/setup-environment-files/atalhos/notas.desktop $HOME/.local/share/applications/notas.desktop
-	ln -s $HOME/Documentos/pessoais/setup-environment-files/atalhos/intellij.desktop $HOME/.local/share/applications/intellij.desktop
-	ln -s $HOME/Documentos/pessoais/setup-environment-files/atalhos/postman.desktop $HOME/.local/share/applications/postman.desktop
+	# ln -s $ORIGEM $DESTINO
+	# ln -s $HOME/Documentos/pessoais/configuration/files/atalhos/notas.desktop $HOME/.local/share/applications/notas.desktop
+	ln -s $HOME/Documentos/pessoais/configuration/files/atalhos/intellij.desktop $HOME/.local/share/applications/intellij.desktop
+	ln -s $HOME/Documentos/pessoais/configuration/files/atalhos/postman.desktop $HOME/.local/share/applications/postman.desktop
 }
 
 __maplink_notes() {
@@ -52,22 +58,24 @@ __setup_brave(){
 	echo 'Configuring Brave'
 	echo 'Copying extensions to Brave folder...'
 	rm -rf ~/.config/BraveSoftware/Brave-Browser/Default/Extensions
-	cp -r ~/Documentos/pessoais/setup-environment-files/brave-browser/Extensions ~/.config/BraveSoftware/Brave-Browser/Default
+	cp -r ~/Documentos/pessoais/configuration/files/brave-browser/Extensions ~/.config/BraveSoftware/Brave-Browser/Default
 
 
 	echo 'Copying Brave preferences to Brave folder...'
 	rm -rf ~/.config/BraveSoftware/Brave-Browser/Default/Preferences
-	cp -r ~/Documentos/pessoais/setup-environment-files/brave-browser/Preferences ~/.config/BraveSoftware/Brave-Browser/Default
+	cp -r ~/Documentos/pessoais/configuration/files/brave-browser/Preferences ~/.config/BraveSoftware/Brave-Browser/Default
 
 
 	echo 'Copying Brave Bookmarks to Brave folder...'
 	rm -rf ~/.config/BraveSoftware/Brave-Browser/Default/Bookmarks
-	cp -r ~/Documentos/pessoais/setup-environment-files/brave-browser/Bookmarks ~/.config/BraveSoftware/Brave-Browser/Default
+	cp -r ~/Documentos/pessoais/configuration/files/brave-browser/Bookmarks ~/.config/BraveSoftware/Brave-Browser/Default
 
 
 	echo 'Copying Brave History to Brave folder...'
 	rm -rf ~/.config/BraveSoftware/Brave-Browser/Default/History
-	cp -r ~/Documentos/pessoais/setup-environment-files/brave-browser/History ~/.config/BraveSoftware/Brave-Browser/Default
+	cp -r ~/Documentos/pessoais/configuration/files/brave-browser/History ~/.config/BraveSoftware/Brave-Browser/Default
+
+	# Talvez precise adicionar aqui os grupos de guias
 }
 
 __gnome_extensions() {
@@ -86,7 +94,7 @@ __gnome_extensions() {
 }
 
 __gnome_configurations(){
-	echo "Not working yet."
+	dconf load / < ~/home/felipe/Documentos/pessoais/configuration/files/user.conf
 	# Restaura todas as configuracoes do usuario do gnome shell
 	# dconf load / < full-backup #trocar full-backup pelo local do arquivo
 }
@@ -96,13 +104,13 @@ __ohmyposh() {
 }
 
 __vpn(){
-	echo "Setting up vpn..."
+	# echo "Setting up vpn..."
 	cp /media/$USER/PENDRIVE/config/vpn/default-vpn.ovpn ~/.vpn
 }
 
 __setup_sshkeys_on_git_projects(){
-	cd $HOME/Documentos/pessoais/setup-environment-files; git config core.sshCommand "ssh -i ~/.ssh/github_rsa"
-	cd $HOME/Documentos/pessoais/setup-environment-scripts; git config core.sshCommand "ssh -i ~/.ssh/github_rsa"
+	cd $HOME/Documentos/pessoais/configuration/files; git config core.sshCommand "ssh -i ~/.ssh/github_rsa"
+	cd $HOME/Documentos/pessoais/configuration/scripts; git config core.sshCommand "ssh -i ~/.ssh/github_rsa"
 }
 
 __ssh(){
@@ -111,20 +119,23 @@ __ssh(){
 	chmod 600 $HOME/.ssh/*
 	chmod 644 $HOME/.ssh/*.pub
 	ssh-add $HOME/.ssh/id_rsa $HOME/.ssh/github_rsa
-	
 	# __setup_sshkeys_on_git_projects
 }
 
 __musics(){
-	cp -R /media/$USER/PENDRIVE/files/music ~/Música
+	cp -R /media/$USER/PENDRIVE/files/music/* ~/Música
 }
 
 __images(){
-	cp -R /media/$USER/PENDRIVE/files/images ~/Imagens
+	cp -R /media/$USER/PENDRIVE/files/images/* ~/Imagens
 }
 
 __zsh(){
-	chsh -s /bin/zsh
+	# chsh -s /bin/zsh
+	cd ~/.oh-my-zsh/custom/plugins
+	git clone git@github.com:zsh-users/zsh-autosuggestions.git
+	git clone git@github.com:zsh-users/zsh-syntax-highlighting.git
+	# Precisa instalar os plugins zsh-autosuggestions e zsh-syntax-highlighting
 }
 
 __logs(){
@@ -133,6 +144,17 @@ __logs(){
 	sudo touch /var/log/backups/backup.log
 	sudo chown -R felipe /var/log/backups
 	sudo chmod 750 /var/log/backups/gdrive-backup.log /var/log/backups/backup.log
+}
+
+__keepassxc(){
+	cp /media/felipe/PENDRIVE/config/credentials.kdbx ~/Documentos/pessoais/configuration/files
+}
+
+__gcloud_sdk(){
+	gcloud auth login
+	gcloud init
+	gcloud container clusters get-credentials mlp-cluster
+	gcloud container clusters get-credentials maplink-cluster-01
 }
 
 __help(){
@@ -193,6 +215,7 @@ case $1 in
 	maplink-notes) __maplink_notes;;
 	zsh) __zsh;;
 	logs) __logs;;
+	keepassxc) __keepassxc;;
 	all) all;;
 	help | -h | *) __help;;
 esac 

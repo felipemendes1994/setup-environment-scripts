@@ -8,6 +8,8 @@ __basic_dependencies(){
 	sudo apt install software-properties-common -y
 	sudo apt install snapd -y
 	sudo apt install gnupg -y
+	sudo add-apt-repository ppa:alexlarsson/flatpak -y
+	sudo apt install --install-recommends flatpak -y
 
 	sudo apt update
 }

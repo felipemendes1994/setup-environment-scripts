@@ -23,10 +23,10 @@ __teams(){
 }
 
 __spotify(){
-	curl -fsSL https://download.spotify.com/debian/pubkey_5E3C45D7B312C643.gpg | gpg --dearmor | sudo tee /usr/share/keyrings/spotify.gpg
-	# curl -sS https://download.spotify.com/debian/pubkey_5E3C45D7B312C643.gpg | sudo apt-key add - 
-	echo "deb [signed-by=/usr/share/keyrings/spotify.gpg] http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sources.list.d/spotify.list
-	sudo apt update && sudo apt install spotify-client -y
+	# curl -sS https://download.spotify.com/debian/pubkey_6224F9941A8AA6D1.gpg | sudo gpg --dearmor --yes -o /etc/apt/trusted.gpg.d/spotify.gpg
+	curl -sS https://download.spotify.com/debian/pubkey_C85668DF69375001.gpg | sudo gpg --dearmor --yes -o /etc/apt/trusted.gpg.d/spotify.gpg
+	echo "deb http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sources.list.d/spotify.list
+	sudo apt-get update && sudo apt-get install spotify-client -y
 }
 
 __libre_office(){
@@ -54,7 +54,7 @@ __gnome_tweaks(){
 }
 
 __gnome_extensions(){
-	sudo apt install gnome-shell-extensions -y
+	sudo apt install gnome-shell-extensions gnome-shell-extension-manager -y
 }
 
 __ohmyposh(){
@@ -72,10 +72,35 @@ __vpn(){
 
 __zsh(){
 	sudo apt install zsh -y
+	sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 }
 
 __keepassxc(){
-	sudo apt install keypassxc -y
+	sudo apt install keepassxc -y
+}
+
+__vlc(){
+	sudo apt install vlc
+}
+
+__syncthing(){
+	echo "deb https://apt.syncthing.net/ syncthing stable" | sudo tee /etc/apt/sources.list.d/syncthing.list
+	curl -s https://syncthing.net/release-key.txt | sudo apt-key add -
+	sudo apt update
+	sudo apt install syncthing
+	#https://www.linuxfordevices.com/tutorials/ubuntu/syncthing-install-and-setup
+}
+
+__hidamari(){
+	flatpak install --user https://flathub.org/repo/appstream/io.github.jeffshee.Hidamari.flatpakref
+}
+
+__gnome_boxes(){
+	flatpak install flathub org.gnome.boxes
+}
+
+__flameshot() {
+	sudo apt install flameshot
 }
 
 __help(){
@@ -94,11 +119,14 @@ __help(){
 	echo "extensions		Install Gnome Extensions"
 	echo "ohmyposh			Install Oh My Posh"
 	echo "vpn				Install Openvpn3"
+	echo "vlc               Install VLC Player"
+	echo "syncthing         Install SyncThing"
 	echo "zsh				Install Zshell"
 	echo "zsh				Install KeePassXC"
+	echo "hidamari			Install Hidamari"
+	echo "Gnome Boxes		Install Gnome Boxes"
 	echo "all				Install all tools mentioned above"
 }
-
 
 __all(){
 	__postman
@@ -115,8 +143,13 @@ __all(){
 	__gnome_extensions
 	__ohmyposh
 	__vpn
+	__vlc
 	__zsh
 	__keepassxc
+	__syncthing
+	__flameshot
+	__hidamari
+	__gnome_boxes
 }
 
 case $1 in
@@ -129,12 +162,18 @@ case $1 in
 	whatsapp) __whatsapp;;
 	notion) __notion;;
 	trello) __trello;;
+	trash) __trash;;
 	tweaks) __gnome_tweaks;;
 	extensions) __gnome_extensions;;
 	ohmyposh) __ohmyposh;;
 	vpn) __vpn;;
+	vlc) __vlc;;
 	zsh) __zsh;;
 	keepassxc) __keepassxc;;
+	syncthing) __syncthing;;
+	flameshot) __flameshot;;
+	hidamari) __hidamari;;
+	gnome_boxes) __gnome_boxes;;
 	all) __all;;
 	help | -h | *) __help;;
 esac
